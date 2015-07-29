@@ -23,6 +23,11 @@
   h1,h2,h3{
     color:#33a;
   }
+  h2{
+    background:#ccf;
+    border-radius: 4px;
+    padding: 0px 8px;
+  }
   .title{
   	display:inline-block;
   	font-size: 35px;
@@ -53,9 +58,14 @@ iron-iconset-svg icons for WebMusic Apps
 <iron-icon icon="webmusic-icons:mic"></iron-icon>
 <iron-icon icon="webmusic-icons:speaker"></iron-icon>
 <iron-icon icon="webmusic-icons:effect"></iron-icon>
+<iron-icon icon="webmusic-icons:amp"></iron-icon>
 <iron-icon icon="webmusic-icons:trumpet"></iron-icon>
+<iron-icon icon="webmusic-icons:piano"></iron-icon>
+<iron-icon icon="webmusic-icons:violin"></iron-icon>
 <iron-icon icon="webmusic-icons:guitar"></iron-icon>
 <iron-icon icon="webmusic-icons:drums"></iron-icon>
+<iron-icon icon="webmusic-icons:trebleclef"></iron-icon>
+<iron-icon icon="webmusic-icons:bassclef"></iron-icon>
 <iron-icon icon="webmusic-icons:note1"></iron-icon>
 <iron-icon icon="webmusic-icons:note2"></iron-icon>
 <iron-icon icon="webmusic-icons:note4"></iron-icon>
@@ -66,8 +76,6 @@ iron-iconset-svg icons for WebMusic Apps
 <iron-icon icon="webmusic-icons:square"></iron-icon>
 <iron-icon icon="webmusic-icons:triangle"></iron-icon>
 <iron-icon icon="webmusic-icons:noise"></iron-icon>
-<iron-icon icon="webmusic-icons:trebleclef"></iron-icon>
-<iron-icon icon="webmusic-icons:bassclef"></iron-icon>
 <br/>
 <br/>
 
@@ -77,9 +85,14 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:mic" style="width:100px;height:100px;color:#86e"></iron-icon><br/>mic</div>
 <div class="item"><iron-icon icon="webmusic-icons:speaker" style="width:100px;height:100px;color:#86e"></iron-icon><br/>speaker</div>
 <div class="item"><iron-icon icon="webmusic-icons:effect" style="width:100px;height:100px;color:#86e"></iron-icon><br/>effect</div>
+<div class="item"><iron-icon icon="webmusic-icons:amp" style="width:100px;height:100px;color:#86e"></iron-icon><br/>amp</div>
 <div class="item"><iron-icon icon="webmusic-icons:trumpet" style="width:100px;height:100px;color:#86e"></iron-icon><br/>trumpet</div>
+<div class="item"><iron-icon icon="webmusic-icons:piano" style="width:100px;height:100px;color:#86e"></iron-icon><br/>piano</div>
+<div class="item"><iron-icon icon="webmusic-icons:violin" style="width:100px;height:100px;color:#86e"></iron-icon><br/>violin</div>
 <div class="item"><iron-icon icon="webmusic-icons:guitar" style="width:100px;height:100px;color:#86e"></iron-icon><br/>guitar</div>
 <div class="item"><iron-icon icon="webmusic-icons:drums" style="width:100px;height:100px;color:#86e"></iron-icon><br/>drums</div>
+<div class="item"><iron-icon icon="webmusic-icons:trebleclef" style="width:100px;height:100px;color:#86e"></iron-icon><br/>trebleclef</div>
+<div class="item"><iron-icon icon="webmusic-icons:bassclef" style="width:100px;height:100px;color:#86e"></iron-icon><br/>bassclef</div>
 <div class="item"><iron-icon icon="webmusic-icons:note1" style="width:100px;height:100px;color:#86e"></iron-icon><br/>note1</div>
 <div class="item"><iron-icon icon="webmusic-icons:note2" style="width:100px;height:100px;color:#86e"></iron-icon><br/>note2</div>
 <div class="item"><iron-icon icon="webmusic-icons:note4" style="width:100px;height:100px;color:#86e"></iron-icon><br/>note4</div>
@@ -90,8 +103,6 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:square" style="width:100px;height:100px;color:#86e"></iron-icon><br/>square</div>
 <div class="item"><iron-icon icon="webmusic-icons:triangle" style="width:100px;height:100px;color:#86e"></iron-icon><br/>triangle</div>
 <div class="item"><iron-icon icon="webmusic-icons:noise" style="width:100px;height:100px;color:#86e"></iron-icon><br/>noise</div>
-<div class="item"><iron-icon icon="webmusic-icons:trebleclef" style="width:100px;height:100px;color:#86e"></iron-icon><br/>trebleclef</div>
-<div class="item"><iron-icon icon="webmusic-icons:bassclef" style="width:100px;height:100px;color:#86e"></iron-icon><br/>bassclef</div>
 <br/><br/>
 <hr/>
 <h2>Overview</h2>
@@ -104,10 +115,12 @@ iron-iconset-svg icons for WebMusic Apps
 <pre>
   &gt; bower install --save PolymerElements/iron-iconset-svg
 </pre>
-<h3>2. Add script&amp;link tags for polymer, iron-icon, iron-iconset-svg and webmusic-icons to your HTML</h3>
+<h3>2. Add script &amp; link tags for polymer, iron-icon, iron-iconset-svg and webmusic-icons to your HTML</h3>
 <pre>
 &lt;!doctype html&gt;
 &lt;html&gt;
+.
+.
 &lt;script src="bower_components/webcomponentsjs/webcomponents.min.js"&gt;&lt;/script&gt;
 &lt;link rel="import" href="bower_components/iron-icon/iron-icon.html"&gt;
 &lt;link rel="import" href="bower_components/iron-iconset-svg/iron-iconset-svg.html"&gt;
@@ -118,6 +131,7 @@ iron-iconset-svg icons for WebMusic Apps
 &lt;/html&gt;
 </pre>
 <h3>3. Use Icon</h3>
+Inser a tag like below. 'iconName' specifies the type of icon :
 <pre>
 &lt;iron-icon icon="webmusic-icons:iconName"&gt;&lt;/iron-icon&gt;
 </pre>
@@ -130,7 +144,23 @@ iron-iconset-svg icons for WebMusic Apps
 <div style="background:#ced;padding:8px;border-radius:8px">
 <iron-icon icon="webmusic-icons:midi" style="width:100px;height:100px;color:magenta"></iron-icon> &lt;iron-icon icon="webmusic-icons:midi" style="width:100px;height:100px;color:magenta"&gt;&lt;/iron-icon&gt;
 </div>
-<h3>4. License</h3>
-<p>Licensed under MIT License</p>
+<h2>License</h2>
+<p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="http://www.g200kg.com/">
+    <span property="dct:title">g200kg</span></a>
+  has waived all copyright and related or neighboring rights to
+  <span property="dct:title">webmusic-icons</span>.
+This work is published from:
+<span property="vcard:Country" datatype="dct:ISO3166"
+      content="JP" about="http://www.g200kg.com/">
+  Japan</span>.
+</p>
 </body>
 </html>
