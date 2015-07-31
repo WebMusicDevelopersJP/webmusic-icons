@@ -130,7 +130,7 @@ function Click(item){
   document.querySelector("#infopane").style.display="block";
   document.querySelector("#infonametext").innerHTML=t.icon;
   document.querySelector("#infocodetext").value="<iron-icon icon=\""+t.icon+"\"></iron-icon>";
-  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\">"+t.firstChild.innerHTML+"</svg>";
+  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\">"+t.firstChild.innerHTML+"</svg>";
   document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+t.icon+"\" style=\"width:100px;height:100px\"></iron-icon>";
   console.log("Name : "+t.icon);
   console.log("SVG : "+t.firstChild);
