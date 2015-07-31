@@ -1,15 +1,17 @@
 {
   "name": "webmusic-icons",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "authors": [
     "g200kg"
   ],
   "keywords": [
     "webmusic","iron-iconset-svg"
   ],
-  "license": "MIT",
+  "license": "CC0",
   "homepage": "http://www.g200kg.com/",
   "ignore": [
+    "index.html",
+    "webmusic-icons.png",
     "**/.*",
     "node_modules",
     "bower_components",
