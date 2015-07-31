@@ -67,16 +67,80 @@
     border-radius:8px;
     box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
     background:#ced;
-    background:linear-gradient(#def,#cde);
+    background:linear-gradient(#def,#cdf);
   }
   .item > iron-icon {
     width:100px;
     height:100px;
     color:#53c;
   }
+  .item > iron-icon:hover {
+    color:#a3c;
+  }
+  #infopane{
+    position:fixed;
+    display:none;
+    top:30%;
+    height:300px;
+    width:600px;
+    left:25%;
+    background:#fff;
+    box-shadow: 2px 2px 5px 3px rgba(0,0,0,0.5);
+    border-radius: 8px;
+    padding:20px;
+  }
+  #infoicon {
+    float:left;
+    margin:20px;
+    width:100px;
+    height:100px;
+    background:#eee;
+    border:1px solid #444;
+    padding:4px;
+  }
+  #infocodetext {
+    width:420px;
+    height:30px;
+  }
+  #infosvgtext {
+    width:420px;
+    height:120px;
+  }
+  #close {
+    margin-left:500px;
+    width:60px;
+    height:30px;
+  }
 </style>
 </head>
 <body>
+<script>
+function Init(){
+  var close=document.querySelector("#close");
+  close.addEventListener("click",Close);
+  var icons=document.getElementsByTagName("iron-icon");
+  for(var i=0;i<icons.length;++i){
+    icons[i].addEventListener("click",Click);
+  }
+}
+function Click(item){
+  var t=item.target;
+  if(t.tagName=="DIV")
+    t=t.firstChild;
+  document.querySelector("#infopane").style.display="block";
+  document.querySelector("#infonametext").innerHTML=t.icon;
+  document.querySelector("#infocodetext").value="<iron-icon icon=\""+t.icon+"\"></iron-icon>";
+  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\">"+t.firstChild.innerHTML+"</svg>";
+  document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+t.icon+"\" style=\"width:100px;height:100px\"></iron-icon>";
+  console.log("Name : "+t.icon);
+  console.log("SVG : "+t.firstChild);
+}
+function Close(){
+  var pane=document.querySelector("#infopane");
+  pane.style.display="none";
+}
+window.addEventListener("load",Init);
+</script>
 <h1 class="title">webmusic-icons</h1>
 <br/>
 iron-iconset-svg icons for WebMusic Apps
@@ -143,6 +207,7 @@ iron-iconset-svg icons for WebMusic Apps
 <span class="listitem"><iron-icon icon="webmusic-icons:wave"></iron-icon><span class="remark">wave</span></span>
 </div>
 <br/>
+
 <br/>
 
 <div class="item"><iron-icon icon="webmusic-icons:midiappy"></iron-icon><br/>midiappy</div>
@@ -240,6 +305,7 @@ Otherwise, follow links bellow for manual install :<br/>
 .
 &lt;/html&gt;
 </pre>
+
 <h3>4. Use Icon</h3>
 Insert a tag like below. 'iconName' specifies the type of icon :
 <pre>
@@ -272,5 +338,14 @@ This work is published from:
       content="JP" about="http://www.g200kg.com/">
   Japan</span>.
 </p>
+<div id="infopane">
+  <br/>
+  <div id="infoicon"></div>
+  <div id="infoname">Name : <span id="infonametext"></span></div>
+  <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext"></textarea></div>
+  <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext"></textarea></div>
+  <br/>
+  <button id="close">Close</button>
+</div>
 </body>
 </html>
