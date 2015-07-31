@@ -79,9 +79,13 @@
       </g>
       <g id="mixer">
         <rect x="2" y="6" width="44" height="40" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="3"/>
-        <path stroke="currentColor" stroke-width="4" stroke-linecap="round"
-          d="M12,20 v18 M20,20 v18 M28,20 v18 M36,20 v18 M10,36 h4 M18,30 h4 M26,36 h4 M34,30 h4"
+        <path stroke="currentColor" stroke-width="3" stroke-linecap="round"
+          d="M12,21 v18 M20,21 v18 M28,21 v18 M36,21 v18 M10,36 h4 M18,30 h4 M26,36 h4 M34,30 h4"
         />
+        <circle cx="12" cy="13" r="3"/>
+        <circle cx="20" cy="13" r="3"/>
+        <circle cx="28" cy="13" r="3"/>
+        <circle cx="36" cy="13" r="3"/>
       </g>
       <g id="effect">
         <rect x="4" y="2" width="40" height="44" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="3"/>
@@ -96,11 +100,29 @@
         <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
           d="M12,19 l-4,4 M20,19 l-12,12 M28,19 l-20,20 M36,19 l-20,20 M40,23 l-16,16 M40,31 l-8,8"
         />
-<!--        <rect x="6" y="19" width="36" height="23" rx="2" ry="2" fill="currentColor" stroke="none"/>-->
         <circle cx="12" cy="13" r="3"/>
         <circle cx="20" cy="13" r="3"/>
         <circle cx="28" cy="13" r="3"/>
         <circle cx="36" cy="13" r="3"/>
+      </g>
+      <g id="vu">
+        <rect x="1" y="6" width="46" height="40" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="3"/>
+        <rect x="7" y="12" width="34" height="21" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"
+          d="M24,18 v2 M12,19 l1,2 M36,19 l-1,2 M18,18 l0.5,2 M30,18 l-0.5,2"
+        />
+        <path stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"
+          d="M27.5,33 l6,-15"
+        />
+      </g>
+      <g id="tuner">
+        <rect x="1" y="10" width="46" height="30" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"
+          d="M24,40 l2,-21"
+        />
+        <path stroke="none" fill="currentColor"
+          d="M12,40 a12,8 0 0,1 24,0 M8,18 l8,4 -8,4 M40,18 l-8,4 8,4"
+        />
       </g>
       <g id="vynil">
         <path fill="currentColor" stroke="none"
@@ -124,6 +146,19 @@
         <path fill="currentColor" stroke="none"
           d="M6 43 c-3,-3 -5,-8 -3,-10 c3,-2 7,-3 9,-5 c2,-2 1,-5 4,-7 c3,-2 4,-2 4,-1 c0,1 -3,3 -2,5 c1,2 3,0 3,0 c0,0 15,-15 15,-15 c0,0 0,-1 1,-2 c1,-1 7,-5 8,-4 c1,1 0,3 -2,3 c0,0 -1,2 -2,3 c-1,1 -3,1 -3,1 c0,0 -17,19 -17,19 c0,0 -1,1 0,2 c1,1 4,-2 5,-1 c1,1 0,2 -1,3 c-1,1 -3,1 -5,3 c-2,2 -1,5 -4,8 c-3,3 -7,1 -10,-2 Z"
         />
+      </g>
+      <g id="marimba">
+        <rect x="2" y="24" height="20" width="6" rx="1" ry="1"/>
+        <rect x="10" y="24" height="19" width="6" rx="1" ry="1"/>
+        <rect x="18" y="24" height="18" width="6" rx="1" ry="1"/>
+        <rect x="26" y="24" height="17" width="6" rx="1" ry="1"/>
+        <rect x="6" y="3" height="19" width="6" rx="1" ry="1"/>
+        <rect x="14" y="4" height="18" width="6" rx="1" ry="1"/>
+        <rect x="22" y="5" height="17" width="6" rx="1" ry="1"/>
+        <circle cx="36" cy="16" r="3"/>
+        <circle cx="42" cy="16" r="3"/>
+        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          d="M36,16 l6,26 M42,16 l-6,26"/>
       </g>
       <g id="trumpet">
         <path fill="currentColor" stroke="currentColor" stroke-width="1"
@@ -231,6 +266,27 @@
           d="M16,21 l-4,4 M24,30 l-4,4 M34,36 l-4,4"
         />
       </g>
+      <g id="bongo">
+        <rect x="16" y="22" width="16" height="8"/>
+        <rect x="27" y="16" width="18" height="3" rx="1" ry="1"/>
+        <rect x="3" y="16" width="18" height="3" rx="1" ry="1"/>
+        <path fill="currentColor" stroke="currentColor" stroke-width="2"
+          d="M44,21 l-2,16 h-12 l-2,-16 z M20,21 l-2,16 h-12 l-2,-16 z"/>
+      </g>
+      <g id="conga">
+        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          d="M29,14 h10 M17,14 h-10"/>
+        <path fill="currentColor"
+          d="M40,16 c6,8 6,10 -1,30 h-10 c-7,-20 -7,-22 -1,-30 M18,16 c6,8 6,10 -1,30 h-10 c-7,-20 -7,-22 -1,-30"/>
+      </g>
+      <g id="gong">
+        <path fill="currentColor"
+          d="M24,16 a12,12 0 0,0 0,24 a12,12 0 0,0 0,-24 M24,22 a6,6 0 0,1 0,12 a6,6 0 0,1 0,-12 M24,25 a2.5,2.5 0 0,0 0,5 a2.5,2.5 0 0,0 0,-5"/>
+        <path stroke="currentColor" stroke-width="3" stroke-linecap="round"
+          d="M6,10 h36 M9,10 v32 M39,10 v32"/>
+        <path stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          d="M14,10 l4,10 M34,10 l-4,10"/>
+      </g>
       <g id="piano">
         <path fill="currentColor"
           d="M4,24 l0,-8 c0,-6 6,-12 12,-12 6,0 12,6 12,12 0,6 16,6 16,16 l0,16 -4,0 0,-12 -32,0 0,12 -4,0"
@@ -250,7 +306,7 @@
           d="M4,20 c0,-2 2,-4 4,-4 h32 c2,0 4,2 4,4 l0,24 -4,0 0,-12 -32,0 0,12 -4,0"
         />
         <path fill="none" stroke="currentColor" stroke-width="1"
-          d="M6,44 h34"
+          d="M6,43.5 h34"
         />
         <path fill="none" stroke="currentColor" stroke-width="1"
           d="M14,32 v12 M21,32 v12 M28,32 v12 M35,32 v12"

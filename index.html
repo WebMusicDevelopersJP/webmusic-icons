@@ -36,6 +36,29 @@
   	margin:0px 10px;
   	padding:0px;
   }
+  .listitem {
+    position:relative;
+  }
+  .listitem > iron-icon{
+    color:#555;
+  }
+  .listitem > iron-icon:hover{
+    color:#c55;
+  }
+  .listitem > iron-icon + span{
+    display:none;
+  }
+  .listitem >iron-icon:hover + span{
+    position:absolute;
+    left:22px;
+    top:22px;
+    display:block;
+    background:#cdf;
+    padding:5px 10px;
+    border-radius:4px;
+    box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
+    z-index:2;
+  }
   .item{
     display:inline-block;
     text-align:center;
@@ -58,59 +81,67 @@
 <br/>
 iron-iconset-svg icons for WebMusic Apps
 <hr/>
-<iron-icon icon="webmusic-icons:midiappy"></iron-icon>
-<iron-icon icon="webmusic-icons:midi"></iron-icon>
-<iron-icon icon="webmusic-icons:keyboard"></iron-icon>
-<iron-icon icon="webmusic-icons:score"></iron-icon>
-<iron-icon icon="webmusic-icons:mic"></iron-icon>
-<iron-icon icon="webmusic-icons:speaker"></iron-icon>
-<iron-icon icon="webmusic-icons:headphone"></iron-icon>
-<iron-icon icon="webmusic-icons:recorder"></iron-icon>
-<iron-icon icon="webmusic-icons:mixer"></iron-icon>
-<iron-icon icon="webmusic-icons:effect"></iron-icon>
-<iron-icon icon="webmusic-icons:amp"></iron-icon>
-<iron-icon icon="webmusic-icons:metronome"></iron-icon>
-<iron-icon icon="webmusic-icons:tuningfork"></iron-icon>
-<iron-icon icon="webmusic-icons:vynil"></iron-icon>
-<iron-icon icon="webmusic-icons:trumpet"></iron-icon>
-<iron-icon icon="webmusic-icons:piano"></iron-icon>
-<iron-icon icon="webmusic-icons:organ"></iron-icon>
-<iron-icon icon="webmusic-icons:violin"></iron-icon>
-<iron-icon icon="webmusic-icons:guitar"></iron-icon>
-<iron-icon icon="webmusic-icons:drums"></iron-icon>
-<iron-icon icon="webmusic-icons:kick"></iron-icon>
-<iron-icon icon="webmusic-icons:snare"></iron-icon>
-<iron-icon icon="webmusic-icons:lotom"></iron-icon>
-<iron-icon icon="webmusic-icons:hitom"></iron-icon>
-<iron-icon icon="webmusic-icons:closehihat"></iron-icon>
-<iron-icon icon="webmusic-icons:openhihat"></iron-icon>
-<iron-icon icon="webmusic-icons:cymbal"></iron-icon>
-<iron-icon icon="webmusic-icons:timbales"></iron-icon>
-<iron-icon icon="webmusic-icons:cowbell"></iron-icon>
-<iron-icon icon="webmusic-icons:tanbourine"></iron-icon>
-<iron-icon icon="webmusic-icons:trebleclef"></iron-icon>
-<iron-icon icon="webmusic-icons:bassclef"></iron-icon>
-<iron-icon icon="webmusic-icons:sharp"></iron-icon>
-<iron-icon icon="webmusic-icons:flat"></iron-icon>
-<iron-icon icon="webmusic-icons:natural"></iron-icon>
-<iron-icon icon="webmusic-icons:note1"></iron-icon>
-<iron-icon icon="webmusic-icons:note2"></iron-icon>
-<iron-icon icon="webmusic-icons:note4"></iron-icon>
-<iron-icon icon="webmusic-icons:note8"></iron-icon>
-<iron-icon icon="webmusic-icons:note16"></iron-icon>
-<iron-icon icon="webmusic-icons:note32"></iron-icon>
-<iron-icon icon="webmusic-icons:rest1"></iron-icon>
-<iron-icon icon="webmusic-icons:rest2"></iron-icon>
-<iron-icon icon="webmusic-icons:rest4"></iron-icon>
-<iron-icon icon="webmusic-icons:rest8"></iron-icon>
-<iron-icon icon="webmusic-icons:rest16"></iron-icon>
-<iron-icon icon="webmusic-icons:sine"></iron-icon>
-<iron-icon icon="webmusic-icons:sawtooth"></iron-icon>
-<iron-icon icon="webmusic-icons:square"></iron-icon>
-<iron-icon icon="webmusic-icons:triangle"></iron-icon>
-<iron-icon icon="webmusic-icons:noise"></iron-icon>
-<iron-icon icon="webmusic-icons:envelope"></iron-icon>
-<iron-icon icon="webmusic-icons:wave"></iron-icon>
+<div id="list">
+<span class="listitem"><iron-icon icon="webmusic-icons:midiappy"></iron-icon><span class="remark">midiappy</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:midi"></iron-icon><span class="remark">midi</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:keyboard"></iron-icon><span class="remark">keyboard</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:score"></iron-icon><span class="remark">score</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:mic"></iron-icon><span class="remark">mic</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:speaker"></iron-icon><span class="remark">speaker</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:headphone"></iron-icon><span class="remark">headphone</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:recorder"></iron-icon><span class="remark">recorder</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:mixer"></iron-icon><span class="remark">mixer</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:effect"></iron-icon><span class="remark">effect</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:amp"></iron-icon><span class="remark">amp</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:vu"></iron-icon><span class="remark">vu</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:tuner"></iron-icon><span class="remark">tuner</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:guitar"></iron-icon><span class="remark">guitar</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:drums"></iron-icon><span class="remark">drums</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:kick"></iron-icon><span class="remark">kick</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:snare"></iron-icon><span class="remark">snare</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:lotom"></iron-icon><span class="remark">lotom</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:hitom"></iron-icon><span class="remark">hitom</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:closehihat"></iron-icon><span class="remark">closehihat</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><span class="remark">openhihat</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><span class="remark">cymbal</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:timbales"></iron-icon><span class="remark">timbales</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:bongo"></iron-icon><span class="remark">bongo</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:conga"></iron-icon><span class="remark">conga</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:gong"></iron-icon><span class="remark">conga</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><span class="remark">trebleclef</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:bassclef"></iron-icon><span class="remark">bassclef</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:sharp"></iron-icon><span class="remark">sharp</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:flat"></iron-icon><span class="remark">flat</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:natural"></iron-icon><span class="remark">natural</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note1"></iron-icon><span class="remark">note1</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note2"></iron-icon><span class="remark">note2</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note4"></iron-icon><span class="remark">note4</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note8"></iron-icon><span class="remark">note8</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note16"></iron-icon><span class="remark">note16</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:note32"></iron-icon><span class="remark">note32</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:rest1"></iron-icon><span class="remark">rest1</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:rest2"></iron-icon><span class="remark">rest2</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:rest4"></iron-icon><span class="remark">rest4</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:rest8"></iron-icon><span class="remark">rest8</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:rest16"></iron-icon><span class="remark">rest16</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:sine"></iron-icon><span class="remark">sine</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:sawtooth"></iron-icon><span class="remark">sawtooth</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:square"></iron-icon><span class="remark">square</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:triangle"></iron-icon><span class="remark">triangle</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:noise"></iron-icon><span class="remark">noise</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:envelope"></iron-icon><span class="remark">envelope</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:wave"></iron-icon><span class="remark">wave</span></span>
+</div>
 <br/>
 <br/>
 
@@ -125,12 +156,15 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:mixer"></iron-icon><br/>mixer</div>
 <div class="item"><iron-icon icon="webmusic-icons:effect"></iron-icon><br/>effect</div>
 <div class="item"><iron-icon icon="webmusic-icons:amp"></iron-icon><br/>amp</div>
+<div class="item"><iron-icon icon="webmusic-icons:vu"></iron-icon><br/>vu</div>
+<div class="item"><iron-icon icon="webmusic-icons:tuner"></iron-icon><br/>tuner</div>
 <div class="item"><iron-icon icon="webmusic-icons:metronome"></iron-icon><br/>metronome</div>
 <div class="item"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><br/>tuningfork</div>
 <div class="item"><iron-icon icon="webmusic-icons:vynil"></iron-icon><br/>vynil</div>
 <div class="item"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><br/>trumpet</div>
 <div class="item"><iron-icon icon="webmusic-icons:piano"></iron-icon><br/>piano</div>
 <div class="item"><iron-icon icon="webmusic-icons:organ"></iron-icon><br/>organ</div>
+<div class="item"><iron-icon icon="webmusic-icons:marimba"></iron-icon><br/>marimba</div>
 <div class="item"><iron-icon icon="webmusic-icons:violin"></iron-icon><br/>violin</div>
 <div class="item"><iron-icon icon="webmusic-icons:guitar"></iron-icon><br/>guitar</div>
 <div class="item"><iron-icon icon="webmusic-icons:drums"></iron-icon><br/>drums</div>
@@ -142,6 +176,9 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><br/>openhihat</div>
 <div class="item"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><br/>cymbal</div>
 <div class="item"><iron-icon icon="webmusic-icons:timbales"></iron-icon><br/>timbales</div>
+<div class="item"><iron-icon icon="webmusic-icons:bongo"></iron-icon><br/>bongo</div>
+<div class="item"><iron-icon icon="webmusic-icons:conga"></iron-icon><br/>conga</div>
+<div class="item"><iron-icon icon="webmusic-icons:gong"></iron-icon><br/>gong</div>
 <div class="item"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><br/>cowbell</div>
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><br/>trebleclef</div>
