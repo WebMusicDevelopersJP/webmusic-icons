@@ -22,6 +22,7 @@
   }
   h1,h2,h3{
     color:#33a;
+    font-weight:bolder;
   }
   h2{
     background:#ccf;
@@ -106,8 +107,12 @@
     width:420px;
     height:120px;
   }
+  #download {
+    margin-left:300px;
+    width:160px;
+    height:30px;
+  }
   #close {
-    margin-left:500px;
     width:60px;
     height:30px;
   }
@@ -117,6 +122,7 @@
 <script>
 function Init(){
   document.querySelector("#close").addEventListener("click",Close);
+//  document.querySelector("#download").addEventListener("click",Download);
   document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
   document.querySelector("#infosvgtext").addEventListener("click", function(e){e.target.focus();e.target.select();});
   var icons=document.getElementsByTagName("iron-icon");
@@ -125,22 +131,41 @@ function Init(){
   }
 }
 function Click(item){
-  var t=item.target;
-  var svg=t.firstChild.innerHTML.replace(/ class="style-scope iron-icon"/g,"");
-  svg=svg.replace(/><\/(rect|circle|path|ellipse|line|polyline|polygon)>/g,"\/>");
-  if(t.tagName=="DIV")
-    t=t.firstChild;
+  var target=item.target;
+  var svg=target;
+  if(svg.firstChild)
+    svg=svg.firstChild;
+  svg=svg.innerHTML;
+  if(svg){
+    svg=svg.replace(/ class="style-scope iron-icon"/g,"");
+    svg=svg.replace(/><\/(rect|circle|path|ellipse|line|polyline|polygon)>/g,"\/>");
+  }
+  if(target.tagName=="DIV")
+    target=target.firstChild;
   document.querySelector("#infopane").style.display="block";
-  document.querySelector("#infonametext").innerHTML=t.icon;
-  document.querySelector("#infocodetext").value="<iron-icon icon=\""+t.icon+"\"></iron-icon>";
-  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
-  document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+t.icon+"\" style=\"width:100px;height:100px\"></iron-icon>";
-  console.log("Name : "+t.icon);
-  console.log("SVG : "+t.firstChild);
+  document.querySelector("#infonametext").innerHTML=target.icon;
+  document.querySelector("#infocodetext").value="<iron-icon icon=\""+target.icon+"\"></iron-icon>";
+  if(svg){
+    document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
+    document.querySelector("#download").disabled=false;
+  }
+  else{
+    document.querySelector("#infosvgtext").value="Not Supported on this browser.";
+    document.querySelector("#download").disabled=true;
+  }
+  document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+target.icon+"\" style=\"width:100px;height:100px\"></iron-icon>";
+  Download();
 }
 function Close(){
   var pane=document.querySelector("#infopane");
   pane.style.display="none";
+}
+function Download(){
+  var txt=document.querySelector("#infosvgtext").value;
+  var file=document.querySelector("#infonametext").innerHTML.split(":")[1]+".svg";
+  var a=document.querySelector("#download");
+  a.download=file;
+  a.href="data:application/octet-stream,"+encodeURIComponent(txt);
 }
 window.addEventListener("load",Init);
 </script>
@@ -290,7 +315,11 @@ iron-iconset-svg icons for WebMusic Apps
 <a href="https://github.com/WebMusicDevelopersJP/webmusic-icons"><b>GitHub repository</b></a>
 
 <h2>Usage</h2>
-<h3>1. Install 'webmusic-icons.html' and depended files.</h3>
+<h3>1. Use as a SVG</h3>
+<p>If you want to use these icons just as a SVG, click icon and copy/download the SVG code (This function is available for Chrome / Firefox only).
+Following steps are for 'iron-icon' tag usage.
+</p>
+<h3>2. Install 'webmusic-icons.html' and depended files.</h3>
 <p>
   If you use bower, use the command below.  It automatically solve the dependency and place files to 'bower_components' folder :
 <pre>
@@ -302,15 +331,16 @@ Otherwise,
 download 'webmusic-icons.html' from this link :<br/>
 <a href="https://webmusicdevelopersjp.github.io/webmusic-icons/webmusic-icons.html"><b>webmusic-icons.html</b></a>
 <br/><br/>
-And follow links below for manually install :<br/>
+And follow links below for manually install other required files :<br/>
 <a href="https://www.polymer-project.org/1.0/" target="_blank"><b>polymer 1.0</b></a><br/>
 <a href="https://github.com/PolymerElements/iron-icon" target="_blank"><b>PolymerElements/iron-icon</b></a><br/>
 <a href="https://github.com/PolymerElements/iron-iconset-svg" target="_blank"><b>PolymerElements/iron-iconset-svg</b></a><br/>
 <br/>
 All files should be placed appropriate locations.
 
-<h3>2. Add script &amp; link tags for polymer, iron-icon, iron-iconset-svg and webmusic-icons to your HTML</h3>
- In this description, all of the components assumes be placed under 'bower_components' folder.
+<h3>3. Load required libraries to your HTML</h3>
+<p>Add script &amp; link tags for polymer, iron-icon, iron-iconset-svg and webmusic-icons to your HTML.
+In this description, all of the components assumes be placed under 'bower_components' folder by bower command.
 <pre>
 &lt;!doctype html&gt;
 &lt;html&gt;
@@ -365,7 +395,7 @@ This work is published from:
   <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
   <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
   <br/>
-  <button id="close">Close</button>
+  <a id="download">Download as a SVG</a>  <button id="close">Close</button>
 </div>
 </body>
 </html>
