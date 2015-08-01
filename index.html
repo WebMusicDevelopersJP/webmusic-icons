@@ -116,8 +116,9 @@
 <body>
 <script>
 function Init(){
-  var close=document.querySelector("#close");
-  close.addEventListener("click",Close);
+  document.querySelector("#close").addEventListener("click",Close);
+  document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
+  document.querySelector("#infosvgtext").addEventListener("click", function(e){e.target.focus();e.target.select();});
   var icons=document.getElementsByTagName("iron-icon");
   for(var i=0;i<icons.length;++i){
     icons[i].addEventListener("click",Click);
@@ -126,12 +127,13 @@ function Init(){
 function Click(item){
   var t=item.target;
   var svg=t.firstChild.innerHTML.replace(/ class="style-scope iron-icon"/g,"");
+  svg=svg.replace(/><\/(rect|circle|path|ellipse|line|polyline|polygon)>/g,"\/>");
   if(t.tagName=="DIV")
     t=t.firstChild;
   document.querySelector("#infopane").style.display="block";
   document.querySelector("#infonametext").innerHTML=t.icon;
   document.querySelector("#infocodetext").value="<iron-icon icon=\""+t.icon+"\"></iron-icon>";
-  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\">\n"+svg+"\n</svg>";
+  document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"48\" height=\"48\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
   document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+t.icon+"\" style=\"width:100px;height:100px\"></iron-icon>";
   console.log("Name : "+t.icon);
   console.log("SVG : "+t.firstChild);
@@ -155,6 +157,7 @@ iron-iconset-svg icons for WebMusic Apps
 <span class="listitem"><iron-icon icon="webmusic-icons:speaker"></iron-icon><span class="remark">speaker</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:headphone"></iron-icon><span class="remark">headphone</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:recorder"></iron-icon><span class="remark">recorder</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:dj"></iron-icon><span class="remark">dj</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:mixer"></iron-icon><span class="remark">mixer</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:effect"></iron-icon><span class="remark">effect</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:amp"></iron-icon><span class="remark">amp</span></span>
@@ -162,8 +165,10 @@ iron-iconset-svg icons for WebMusic Apps
 <span class="listitem"><iron-icon icon="webmusic-icons:tuner"></iron-icon><span class="remark">tuner</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:sax"></iron-icon><span class="remark">sax</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
@@ -177,10 +182,12 @@ iron-iconset-svg icons for WebMusic Apps
 <span class="listitem"><iron-icon icon="webmusic-icons:closehihat"></iron-icon><span class="remark">closehihat</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><span class="remark">openhihat</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><span class="remark">cymbal</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:clap"></iron-icon><span class="remark">clap</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:timbales"></iron-icon><span class="remark">timbales</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:bongo"></iron-icon><span class="remark">bongo</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:conga"></iron-icon><span class="remark">conga</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:gong"></iron-icon><span class="remark">conga</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:windchime"></iron-icon><span class="remark">windchime</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><span class="remark">trebleclef</span></span>
@@ -219,6 +226,7 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:speaker"></iron-icon><br/>speaker</div>
 <div class="item"><iron-icon icon="webmusic-icons:headphone"></iron-icon><br/>headphone</div>
 <div class="item"><iron-icon icon="webmusic-icons:recorder"></iron-icon><br/>recorder</div>
+<div class="item"><iron-icon icon="webmusic-icons:dj"></iron-icon><br/>dj</div>
 <div class="item"><iron-icon icon="webmusic-icons:mixer"></iron-icon><br/>mixer</div>
 <div class="item"><iron-icon icon="webmusic-icons:effect"></iron-icon><br/>effect</div>
 <div class="item"><iron-icon icon="webmusic-icons:amp"></iron-icon><br/>amp</div>
@@ -226,8 +234,10 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:tuner"></iron-icon><br/>tuner</div>
 <div class="item"><iron-icon icon="webmusic-icons:metronome"></iron-icon><br/>metronome</div>
 <div class="item"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><br/>tuningfork</div>
+<div class="item"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><br/>spectrum</div>
 <div class="item"><iron-icon icon="webmusic-icons:vynil"></iron-icon><br/>vynil</div>
 <div class="item"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><br/>trumpet</div>
+<div class="item"><iron-icon icon="webmusic-icons:sax"></iron-icon><br/>sax</div>
 <div class="item"><iron-icon icon="webmusic-icons:piano"></iron-icon><br/>piano</div>
 <div class="item"><iron-icon icon="webmusic-icons:organ"></iron-icon><br/>organ</div>
 <div class="item"><iron-icon icon="webmusic-icons:marimba"></iron-icon><br/>marimba</div>
@@ -241,10 +251,12 @@ iron-iconset-svg icons for WebMusic Apps
 <div class="item"><iron-icon icon="webmusic-icons:closehihat"></iron-icon><br/>closehihat</div>
 <div class="item"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><br/>openhihat</div>
 <div class="item"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><br/>cymbal</div>
+<div class="item"><iron-icon icon="webmusic-icons:clap"></iron-icon><br/>clap</div>
 <div class="item"><iron-icon icon="webmusic-icons:timbales"></iron-icon><br/>timbales</div>
 <div class="item"><iron-icon icon="webmusic-icons:bongo"></iron-icon><br/>bongo</div>
 <div class="item"><iron-icon icon="webmusic-icons:conga"></iron-icon><br/>conga</div>
 <div class="item"><iron-icon icon="webmusic-icons:gong"></iron-icon><br/>gong</div>
+<div class="item"><iron-icon icon="webmusic-icons:windchime"></iron-icon><br/>windchime</div>
 <div class="item"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><br/>cowbell</div>
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><br/>trebleclef</div>
@@ -343,8 +355,8 @@ This work is published from:
   <br/>
   <div id="infoicon"></div>
   <div id="infoname">Name : <span id="infonametext"></span></div>
-  <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext"></textarea></div>
-  <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext"></textarea></div>
+  <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
+  <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
   <br/>
   <button id="close">Close</button>
 </div>
