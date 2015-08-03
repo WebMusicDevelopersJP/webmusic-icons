@@ -82,17 +82,20 @@
     position:fixed;
     display:none;
     top:30%;
-    height:300px;
-    width:600px;
+    height:320px;
+    width:620px;
     left:25%;
     background:#fff;
     box-shadow: 2px 2px 5px 3px rgba(0,0,0,0.5);
     border-radius: 8px;
     padding:20px;
   }
-  #infoicon {
+  #infoiconbase{
     float:left;
-    margin:10px;
+    margin:4px;
+    text-align: center;
+  }
+  #infoicon {
     width:130px;
     height:130px;
     background:#eee;
@@ -120,6 +123,7 @@
 </head>
 <body>
 <script>
+var currentIcon=null;
 function Init(){
   document.querySelector("#close").addEventListener("click",Close);
 //  document.querySelector("#download").addEventListener("click",Download);
@@ -129,6 +133,9 @@ function Init(){
   for(var i=0;i<icons.length;++i){
     icons[i].addEventListener("click",Click);
   }
+}
+function SetIcon(icon,size){
+  document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+icon+"\" style=\"width:"+size+"px;height:"+size+"px;border:1px solid #000;display:block;margin:auto\"></iron-icon>";
 }
 function Click(item){
   var target=item.target;
@@ -142,6 +149,7 @@ function Click(item){
   }
   if(target.tagName=="DIV")
     target=target.firstChild;
+  currentIcon=target.icon;
   document.querySelector("#infopane").style.display="block";
   document.querySelector("#infonametext").innerHTML=target.icon;
   document.querySelector("#infocodetext").value="<iron-icon icon=\""+target.icon+"\"></iron-icon>";
@@ -153,8 +161,11 @@ function Click(item){
     document.querySelector("#infosvgtext").value="Not Supported on this browser.";
     document.querySelector("#download").disabled=true;
   }
-  document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+target.icon+"\" style=\"width:130px;height:130px\"></iron-icon>";
+  SetIcon(currentIcon,128);
   Download();
+}
+function SetSize(x){
+  SetIcon(currentIcon,x);
 }
 function Close(){
   var pane=document.querySelector("#infopane");
@@ -412,7 +423,10 @@ This work is published from:
 </p>
 <div id="infopane">
   <br/>
+  <div id="infoiconbase">
+  <button onclick="SetSize(48)">48px</button><button onclick="SetSize(96)">96px</button><button onclick="SetSize(128)">128px</button>
   <div id="infoicon"></div>
+</div>
   <div id="infoname">Name : <span id="infonametext"></span></div>
   <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
   <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
