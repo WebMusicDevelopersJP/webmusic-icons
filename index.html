@@ -277,6 +277,7 @@ window.addEventListener("load",Init);
 <span class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><span class="remark">sc88pro</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><span class="remark">mpc1000</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:tb303"></iron-icon><span class="remark">tb303</span></span>
@@ -358,6 +359,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:maracas"></iron-icon><br/>maracas</div>
 <div class="item"><iron-icon icon="webmusic-icons:theremin"></iron-icon><br/>theremin</div>
+<div class="item"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><br/>moogiiic</div>
 <div class="item"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><br/>sc88pro</div>
 <div class="item"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><br/>mpc1000</div>
 <div class="item"><iron-icon icon="webmusic-icons:tb303"></iron-icon><br/>tb303</div>
@@ -485,7 +487,7 @@ This work is published from:
 <div id="infopane">
   <br/>
   <div id="infoiconbase">
-  <button onclick="SetSize(48)">48px</button><button onclick="SetSize(96)">96px</button><button onclick="SetSize(128)">128px</button><button onclick="SetSize(256)">256px</button><button onclick="SetSize(512)">512px</button>
+  <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select>
   <div id="infoicon"></div>
   </div>
   <div id="infoname">Name : <span id="infonametext"></span></div>
