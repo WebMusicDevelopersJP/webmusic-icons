@@ -35,7 +35,7 @@
     position:fixed;
     margin:0px;
     padding:8px;
-    background:#bbf;
+    background:#99f;
     box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
     z-index:10;
     width:100%;
@@ -57,6 +57,7 @@
   }
   .subtitle{
     margin-left:30px;
+    color:#008;
   }
   .listitem {
     position:relative;
@@ -107,6 +108,24 @@
     border-radius:8px;
     box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
   }
+  button {
+    border-radius:10px;
+    border:4px solid #66f;
+    background:#66f;
+    color:#fff;
+    outline:0px;
+    transition: all .2s;
+  }
+  button:hover {
+    border:4px solid #b3c;
+    background:#b3c;
+    color:#fff;
+  }
+  button:active {
+    border:4px solid #b3c;
+    background:#fff;
+    color:#b3c;
+  }
   #container{
     padding:10px;
   }
@@ -137,6 +156,10 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
+  #infosize{
+    font-weight:bolder;
+    margin-bottom:2px;
+  }
   #infocontainer{
     padding:20px;
   }
@@ -154,7 +177,7 @@
     border:1px solid #444;
     padding:4px;
   }
-  #infocode {
+  #infocode,#infosvg {
     font-weight: bold;
   }
   #infocodetext {
@@ -316,6 +339,7 @@ window.addEventListener("load",Init);
 <span class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
@@ -401,6 +425,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:maracas"></iron-icon><br/>maracas</div>
 <div class="item"><iron-icon icon="webmusic-icons:theremin"></iron-icon><br/>theremin</div>
+<div class="item"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><br/>ewi3000</div>
 <div class="item"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><br/>moogiiic</div>
 <div class="item"><iron-icon icon="webmusic-icons:synthia"></iron-icon><br/>synthia</div>
 <div class="item"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><br/>prophet5</div>
@@ -533,7 +558,7 @@ This work is published from:
   <div id="infoheader"> iconName : <span id="infonametext"></span></div>
   <div id="infocontainer">
   <div id="infoiconbase">
-  <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select>
+  <div id="infosize">Size : <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select></div>
   <div id="infoicon"></div>
   </div>
   <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
