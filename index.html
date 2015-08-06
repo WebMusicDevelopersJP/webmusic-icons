@@ -188,10 +188,7 @@
     width:420px;
     height:120px;
   }
-  #downloadsvg {
-    display:none;
-  }
-  #downloadpng {
+  #download {
     display:none;
   }
   #close,#pngbutton,#svgbutton {
@@ -225,7 +222,7 @@ function SetIcon(name,svg,size){
     document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px\"></iron-icon>";
   if(svg){
     document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+size+"\" height=\""+size+"\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
-    SetDownload();
+//    SetDownload();
     document.querySelector("#svgbutton").disabled=false;
     document.querySelector("#pngbutton").disabled=false;
   }
@@ -240,7 +237,16 @@ function Click(item){
   var svg=target;
   if(svg.firstChild)
     svg=svg.firstChild;
+  var name=target.icon.split(":")[1];
   svg=svg.innerHTML;
+  if(!svg){
+    var s=new XMLSerializer();
+    var t=document.body.children.container.children.list.children["icon_"+name].children[0];
+    t=s.serializeToString(t);
+    var p1=t.indexOf("<g");
+    var p2=t.indexOf("</g");
+    svg=t.substring(p1,p2)+"</g>";
+  }
   if(svg){
     svg=svg.replace(/ class="style-scope iron-icon"/g,"");
     svg=svg.replace(/><\/(rect|circle|path|ellipse|line|polyline|polygon)>/g,"\/>");
@@ -252,6 +258,19 @@ function Click(item){
   document.querySelector("#infopane").style.top="40%";
   SetIcon(currentIcon,currentSvg,currentSize);
 }
+function ExecDownload(blob,filename){
+  if(window.navigator.msSaveBlob){
+    window.navigator.msSaveBlob(blob, filename);
+  }
+  else {
+    var url=(window.URL||window.webkitURL);
+    var link=document.querySelector("#download");
+    var datauri=url.createObjectURL(blob);
+    link.href=datauri;
+    link.download=filename;
+    link.click();
+  }
+}
 function SetSize(x){
   currentSize=x;
   SetIcon(currentIcon,currentSvg,x);
@@ -261,17 +280,42 @@ function Close(){
   pane.style.top="100%";
 }
 function ClickPng(){
-  document.querySelector("#downloadpng").click();
+  var svg=document.querySelector("#infosvgtext").value;
+  var img=new Image(currentSize,currentSize);
+  var canvas=document.createElement("canvas");
+  canvas.width=currentSize;
+  canvas.height=currentSize;
+  var ctx=canvas.getContext("2d");
+  img.onload=function(){
+    ctx.drawImage(img,0,0);
+    var datauri=canvas.toDataURL();
+    var bin=atob(datauri.split(',')[1]);
+    var buffer=new Uint8Array(bin.length);
+    for (var i=0; i<bin.length; i++)
+      buffer[i] = bin.charCodeAt(i);
+    var blob=new Blob([buffer.buffer], {type: "image/png"});
+    var name=currentIcon.split(":")[1]+".png";
+    ExecDownload(blob,name);
+  }
+  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
 function ClickSvg(){
-  document.querySelector("#downloadsvg").click();
+  var svg=document.querySelector("#infosvgtext").value;
+  var blob=new Blob([svg]);
+  var name=currentIcon.split(":")[1]+".svg";
+  ExecDownload(blob,name);
 }
 function SetDownload(){
   var txt=document.querySelector("#infosvgtext").value;
   var name=document.querySelector("#infonametext").innerHTML.split(":")[1];
   var svglink=document.querySelector("#downloadsvg");
   svglink.download=name+".svg";
-  svglink.href="data:application/octet-stream,"+encodeURIComponent(txt);
+//  if(window.navigator.msSaveBlob){
+//    console.log("msSaveBlob");
+//    return;
+//  }
+//svglink.href="data:application/octet-stream,"+encodeURIComponent(txt);
+svglink.href="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(txt);
   var pnglink=document.querySelector("#downloadpng");
   pnglink.download=name+".png";
   var img=new Image(currentSize,currentSize);
@@ -294,87 +338,88 @@ window.addEventListener("load",Init);
 <div id="container">
 <hr/>
 <div id="list">
-<span class="listitem"><iron-icon icon="webmusic-icons:midiappy"></iron-icon><span class="remark">midiappy</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:midi"></iron-icon><span class="remark">midi</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:keyboard"></iron-icon><span class="remark">keyboard</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:score"></iron-icon><span class="remark">score</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:pianoroll"></iron-icon><span class="remark">pianoroll</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:mic"></iron-icon><span class="remark">mic</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:speaker"></iron-icon><span class="remark">speaker</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:headphone"></iron-icon><span class="remark">headphone</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:headset"></iron-icon><span class="remark">headset</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:recorder"></iron-icon><span class="remark">recorder</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:dj"></iron-icon><span class="remark">dj</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:mixer"></iron-icon><span class="remark">mixer</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:effect"></iron-icon><span class="remark">effect</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:amp"></iron-icon><span class="remark">amp</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:vu"></iron-icon><span class="remark">vu</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:tuner"></iron-icon><span class="remark">tuner</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sax"></iron-icon><span class="remark">sax</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:guitar"></iron-icon><span class="remark">guitar</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:drums"></iron-icon><span class="remark">drums</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:kick"></iron-icon><span class="remark">kick</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:snare"></iron-icon><span class="remark">snare</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:lotom"></iron-icon><span class="remark">lotom</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:hitom"></iron-icon><span class="remark">hitom</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:closehihat"></iron-icon><span class="remark">closehihat</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><span class="remark">openhihat</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><span class="remark">cymbal</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:clap"></iron-icon><span class="remark">clap</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:timbales"></iron-icon><span class="remark">timbales</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:bongo"></iron-icon><span class="remark">bongo</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:conga"></iron-icon><span class="remark">conga</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:gong"></iron-icon><span class="remark">conga</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:windchime"></iron-icon><span class="remark">windchime</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sp1200"></iron-icon><span class="remark">sp1200</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><span class="remark">sc88pro</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><span class="remark">mpc1000</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:tb303"></iron-icon><span class="remark">tb303</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:tr808"></iron-icon><span class="remark">tr808</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:qy10"></iron-icon><span class="remark">qy10</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:ms20"></iron-icon><span class="remark">ms20</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:dx7"></iron-icon><span class="remark">dx7</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:minimoog"></iron-icon><span class="remark">minimoog</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><span class="remark">trebleclef</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:bassclef"></iron-icon><span class="remark">bassclef</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sharp"></iron-icon><span class="remark">sharp</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:flat"></iron-icon><span class="remark">flat</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:natural"></iron-icon><span class="remark">natural</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note1"></iron-icon><span class="remark">note1</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note2"></iron-icon><span class="remark">note2</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note4"></iron-icon><span class="remark">note4</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note8"></iron-icon><span class="remark">note8</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note16"></iron-icon><span class="remark">note16</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:note32"></iron-icon><span class="remark">note32</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:rest1"></iron-icon><span class="remark">rest1</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:rest2"></iron-icon><span class="remark">rest2</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:rest4"></iron-icon><span class="remark">rest4</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:rest8"></iron-icon><span class="remark">rest8</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:rest16"></iron-icon><span class="remark">rest16</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sine"></iron-icon><span class="remark">sine</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:sawtooth"></iron-icon><span class="remark">sawtooth</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:square"></iron-icon><span class="remark">square</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:triangle"></iron-icon><span class="remark">triangle</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:noise"></iron-icon><span class="remark">noise</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:envelope"></iron-icon><span class="remark">envelope</span></span>
-<span class="listitem"><iron-icon icon="webmusic-icons:wave"></iron-icon><span class="remark">wave</span></span>
+<span id="icon_midiappy" class="listitem"><iron-icon icon="webmusic-icons:midiappy"></iron-icon><span class="remark">midiappy</span></span>
+<span id="icon_midi" class="listitem"><iron-icon icon="webmusic-icons:midi"></iron-icon><span class="remark">midi</span></span>
+<span id="icon_keyboard" class="listitem"><iron-icon icon="webmusic-icons:keyboard"></iron-icon><span class="remark">keyboard</span></span>
+<span id="icon_score" class="listitem"><iron-icon icon="webmusic-icons:score"></iron-icon><span class="remark">score</span></span>
+<span id="icon_pianoroll" class="listitem"><iron-icon icon="webmusic-icons:pianoroll"></iron-icon><span class="remark">pianoroll</span></span>
+<span id="icon_mic" class="listitem"><iron-icon icon="webmusic-icons:mic"></iron-icon><span class="remark">mic</span></span>
+<span id="icon_speaker" class="listitem"><iron-icon icon="webmusic-icons:speaker"></iron-icon><span class="remark">speaker</span></span>
+<span id="icon_headphone" class="listitem"><iron-icon icon="webmusic-icons:headphone"></iron-icon><span class="remark">headphone</span></span>
+<span id="icon_headset" class="listitem"><iron-icon icon="webmusic-icons:headset"></iron-icon><span class="remark">headset</span></span>
+<span id="icon_recorder" class="listitem"><iron-icon icon="webmusic-icons:recorder"></iron-icon><span class="remark">recorder</span></span>
+<span id="icon_dj" class="listitem"><iron-icon icon="webmusic-icons:dj"></iron-icon><span class="remark">dj</span></span>
+<span id="icon_mixer" class="listitem"><iron-icon icon="webmusic-icons:mixer"></iron-icon><span class="remark">mixer</span></span>
+<span id="icon_effect" class="listitem"><iron-icon icon="webmusic-icons:effect"></iron-icon><span class="remark">effect</span></span>
+<span id="icon_amp" class="listitem"><iron-icon icon="webmusic-icons:amp"></iron-icon><span class="remark">amp</span></span>
+<span id="icon_vu" class="listitem"><iron-icon icon="webmusic-icons:vu"></iron-icon><span class="remark">vu</span></span>
+<span id="icon_tuner" class="listitem"><iron-icon icon="webmusic-icons:tuner"></iron-icon><span class="remark">tuner</span></span>
+<span id="icon_metronome" class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
+<span id="icon_tuningfork" class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
+<span id="icon_spectrum" class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
+<span id="icon_vynil" class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
+<span id="icon_trumpet" class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
+<span id="icon_sax" class="listitem"><iron-icon icon="webmusic-icons:sax"></iron-icon><span class="remark">sax</span></span>
+<span id="icon_piano" class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
+<span id="icon_organ" class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
+<span id="icon_marimba" class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
+<span id="icon_violin" class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
+<span id="icon_guitar" class="listitem"><iron-icon icon="webmusic-icons:guitar"></iron-icon><span class="remark">guitar</span></span>
+<span id="icon_drums" class="listitem"><iron-icon icon="webmusic-icons:drums"></iron-icon><span class="remark">drums</span></span>
+<span id="icon_kick" class="listitem"><iron-icon icon="webmusic-icons:kick"></iron-icon><span class="remark">kick</span></span>
+<span id="icon_snare" class="listitem"><iron-icon icon="webmusic-icons:snare"></iron-icon><span class="remark">snare</span></span>
+<span id="icon_lotom" class="listitem"><iron-icon icon="webmusic-icons:lotom"></iron-icon><span class="remark">lotom</span></span>
+<span id="icon_hitom" class="listitem"><iron-icon icon="webmusic-icons:hitom"></iron-icon><span class="remark">hitom</span></span>
+<span id="icon_closehihat" class="listitem"><iron-icon icon="webmusic-icons:closehihat"></iron-icon><span class="remark">closehihat</span></span>
+<span id="icon_openhihat" class="listitem"><iron-icon icon="webmusic-icons:openhihat"></iron-icon><span class="remark">openhihat</span></span>
+<span id="icon_cymbal" class="listitem"><iron-icon icon="webmusic-icons:cymbal"></iron-icon><span class="remark">cymbal</span></span>
+<span id="icon_clap" class="listitem"><iron-icon icon="webmusic-icons:clap"></iron-icon><span class="remark">clap</span></span>
+<span id="icon_timbales" class="listitem"><iron-icon icon="webmusic-icons:timbales"></iron-icon><span class="remark">timbales</span></span>
+<span id="icon_bongo" class="listitem"><iron-icon icon="webmusic-icons:bongo"></iron-icon><span class="remark">bongo</span></span>
+<span id="icon_conga" class="listitem"><iron-icon icon="webmusic-icons:conga"></iron-icon><span class="remark">conga</span></span>
+<span id="icon_gong" class="listitem"><iron-icon icon="webmusic-icons:gong"></iron-icon><span class="remark">conga</span></span>
+<span id="icon_windchime" class="listitem"><iron-icon icon="webmusic-icons:windchime"></iron-icon><span class="remark">windchime</span></span>
+<span id="icon_cowbell" class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
+<span id="icon_tanbourine" class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
+<span id="icon_maracas" class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
+<span id="icon_theremin" class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
+<span id="icon_ewi3000" class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
+<span id="icon_moogiiic" class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
+<span id="icon_synthia" class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
+<span id="icon_prophet5" class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
+<span id="icon_sp1200" class="listitem"><iron-icon icon="webmusic-icons:sp1200"></iron-icon><span class="remark">sp1200</span></span>
+<span id="icon_sc88pro" class="listitem"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><span class="remark">sc88pro</span></span>
+<span id="icon_mpc1000" class="listitem"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><span class="remark">mpc1000</span></span>
+<span id="icon_tb303" class="listitem"><iron-icon icon="webmusic-icons:tb303"></iron-icon><span class="remark">tb303</span></span>
+<span id="icon_tr808" class="listitem"><iron-icon icon="webmusic-icons:tr808"></iron-icon><span class="remark">tr808</span></span>
+<span id="icon_qy10" class="listitem"><iron-icon icon="webmusic-icons:qy10"></iron-icon><span class="remark">qy10</span></span>
+<span id="icon_ms20" class="listitem"><iron-icon icon="webmusic-icons:ms20"></iron-icon><span class="remark">ms20</span></span>
+<span id="icon_dx7" class="listitem"><iron-icon icon="webmusic-icons:dx7"></iron-icon><span class="remark">dx7</span></span>
+<span id="icon_m1" class="listitem"><iron-icon icon="webmusic-icons:m1"></iron-icon><span class="remark">m1</span></span>
+<span id="icon_minimoog" class="listitem"><iron-icon icon="webmusic-icons:minimoog"></iron-icon><span class="remark">minimoog</span></span>
+<span id="icon_trebleclef" class="listitem"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><span class="remark">trebleclef</span></span>
+<span id="icon_bassclef" class="listitem"><iron-icon icon="webmusic-icons:bassclef"></iron-icon><span class="remark">bassclef</span></span>
+<span id="icon_sharp" class="listitem"><iron-icon icon="webmusic-icons:sharp"></iron-icon><span class="remark">sharp</span></span>
+<span id="icon_flat" class="listitem"><iron-icon icon="webmusic-icons:flat"></iron-icon><span class="remark">flat</span></span>
+<span id="icon_natural" class="listitem"><iron-icon icon="webmusic-icons:natural"></iron-icon><span class="remark">natural</span></span>
+<span id="icon_note1" class="listitem"><iron-icon icon="webmusic-icons:note1"></iron-icon><span class="remark">note1</span></span>
+<span id="icon_note2" class="listitem"><iron-icon icon="webmusic-icons:note2"></iron-icon><span class="remark">note2</span></span>
+<span id="icon_note4" class="listitem"><iron-icon icon="webmusic-icons:note4"></iron-icon><span class="remark">note4</span></span>
+<span id="icon_note8" class="listitem"><iron-icon icon="webmusic-icons:note8"></iron-icon><span class="remark">note8</span></span>
+<span id="icon_note16" class="listitem"><iron-icon icon="webmusic-icons:note16"></iron-icon><span class="remark">note16</span></span>
+<span id="icon_note32" class="listitem"><iron-icon icon="webmusic-icons:note32"></iron-icon><span class="remark">note32</span></span>
+<span id="icon_rest1" class="listitem"><iron-icon icon="webmusic-icons:rest1"></iron-icon><span class="remark">rest1</span></span>
+<span id="icon_rest2" class="listitem"><iron-icon icon="webmusic-icons:rest2"></iron-icon><span class="remark">rest2</span></span>
+<span id="icon_rest4" class="listitem"><iron-icon icon="webmusic-icons:rest4"></iron-icon><span class="remark">rest4</span></span>
+<span id="icon_rest8" class="listitem"><iron-icon icon="webmusic-icons:rest8"></iron-icon><span class="remark">rest8</span></span>
+<span id="icon_rest16" class="listitem"><iron-icon icon="webmusic-icons:rest16"></iron-icon><span class="remark">rest16</span></span>
+<span id="icon_sine" class="listitem"><iron-icon icon="webmusic-icons:sine"></iron-icon><span class="remark">sine</span></span>
+<span id="icon_sawtooth" class="listitem"><iron-icon icon="webmusic-icons:sawtooth"></iron-icon><span class="remark">sawtooth</span></span>
+<span id="icon_square" class="listitem"><iron-icon icon="webmusic-icons:square"></iron-icon><span class="remark">square</span></span>
+<span id="icon_triangle" class="listitem"><iron-icon icon="webmusic-icons:triangle"></iron-icon><span class="remark">triangle</span></span>
+<span id="icon_noise" class="listitem"><iron-icon icon="webmusic-icons:noise"></iron-icon><span class="remark">noise</span></span>
+<span id="icon_envelope" class="listitem"><iron-icon icon="webmusic-icons:envelope"></iron-icon><span class="remark">envelope</span></span>
+<span id="icon_wave" class="listitem"><iron-icon icon="webmusic-icons:wave"></iron-icon><span class="remark">wave</span></span>
 </div>
 <br/>
 
@@ -437,6 +482,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:qy10"></iron-icon><br/>qy10</div>
 <div class="item"><iron-icon icon="webmusic-icons:ms20"></iron-icon><br/>ms20</div>
 <div class="item"><iron-icon icon="webmusic-icons:dx7"></iron-icon><br/>dx7</div>
+<div class="item"><iron-icon icon="webmusic-icons:m1"></iron-icon><br/>m1</div>
 <div class="item"><iron-icon icon="webmusic-icons:minimoog"></iron-icon><br/>minimoog</div>
 <div class="item"><iron-icon icon="webmusic-icons:trebleclef"></iron-icon><br/>trebleclef</div>
 <div class="item"><iron-icon icon="webmusic-icons:bassclef"></iron-icon><br/>bassclef</div>
@@ -476,10 +522,10 @@ window.addEventListener("load",Init);
 
 <h2>Usage</h2>
 <h3>1. Use as PNG or SVG file</h3>
-<p>If you want to use these icons just as simple PNG or SVG file, click the icon in the list and download the PNG/SVG image file (This function is available for Chrome / Firefox only).
+<p>If you want to use these icons just as simple PNG or SVG file, click the icon in the list and download the PNG/SVG image file (This function is available for Chrome / Firefox / Edge only).
 <br/><img src="download.png" width="400"/></p>
-<p>
 Following steps are for 'iron-icon' tag usage.
+<p>
 </p>
 
 
@@ -565,7 +611,7 @@ This work is published from:
   <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
   <br/>
   <button id="pngbutton" onclick="ClickPng()">Donwload PNG</button> <button id="svgbutton" onclick="ClickSvg()">Download SVG</button> <button id="close">Close</button>
-  <a id="downloadpng">Download as PNG</a> <a id="downloadsvg">Download as SVG</a>
+  <br/><br/><a id="download">Download</a>
 </div>
 </div>
 </div>
