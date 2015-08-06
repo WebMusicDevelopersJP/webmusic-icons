@@ -14,6 +14,8 @@
     font-family: Muli;
     background:#fff;
     color:#004;
+    padding:0;
+    margin:0;
   }
   pre{
     border:1px solid #bbb;
@@ -25,9 +27,24 @@
     font-weight:bolder;
   }
   h2{
-    background:#ccf;
+    background:#ddf;
     border-radius: 4px;
     padding: 0px 8px;
+  }
+  #header{
+    position:fixed;
+    margin:0px;
+    padding:8px;
+    background:#bbf;
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.5);
+    z-index:10;
+    width:100%;
+    height:65px;
+    top:0;
+    left:0;
+  }
+  #list{
+    margin-top:100px;
   }
   .title{
   	display:inline-block;
@@ -36,6 +53,10 @@
   	font-weight:normal;
   	margin:0px 10px;
   	padding:0px;
+    color:#fff;
+  }
+  .subtitle{
+    margin-left:30px;
   }
   .listitem {
     position:relative;
@@ -44,7 +65,7 @@
     color:#555;
   }
   .listitem > iron-icon:hover{
-    color:#c55;
+    color:#b3c;
   }
   .listitem > iron-icon + span{
     display:none;
@@ -54,7 +75,8 @@
     left:22px;
     top:22px;
     display:block;
-    background:#ccf;
+    background:#b3c;
+    color:#fff;
     font-weight:bold;
     padding:5px 10px;
     border-radius:4px;
@@ -68,36 +90,54 @@
     margin:4px;
     border-radius:8px;
     box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
-    background:#cdf;
+    background:#ddf;
     background:linear-gradient(#def,#cdf);
   }
   .item > iron-icon {
     width:100px;
     height:100px;
-    color:#53c;
+    color:#43c;
   }
   .item > iron-icon:hover {
-    color:#a3c;
+    color:#b3c;
   }
   .sample {
-    background:#cdf;
+    background:#ddf;
     padding:8px;
     border-radius:8px;
     box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.5);
   }
+  #container{
+    padding:10px;
+  }
   #infopane{
     position:fixed;
-    display:none;
-    top:40%;
-    height:330px;
-    width:750px;
+    display:block;
+    top:100%;
+    transition: all .4s ease;
+    height:380px;
+    width:800px;
     left:0;
     right:0;
     bottom:0;
     margin:0 auto;
+    padding:0px;
     background:#fff;
     box-shadow: 2px 2px 5px 3px rgba(0,0,0,0.5);
     border-radius: 8px;
+  }
+  #infoheader{
+    height:38px;
+    background:#b3c;
+    color:#fff;
+    padding:2px 20px;
+    font-size:20px;
+    font-weight: bolder;
+    line-height: 38px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  #infocontainer{
     padding:20px;
   }
   #infoiconbase{
@@ -110,12 +150,9 @@
     overflow:auto;
     width:270px;
     height:270px;
-    background:#cdf;
+    background:#ddf;
     border:1px solid #444;
     padding:4px;
-  }
-  #infoname {
-    font-weight: bold;
   }
   #infocode {
     font-weight: bold;
@@ -189,7 +226,7 @@ function Click(item){
     target=target.firstChild;
   currentSvg=svg;
   currentIcon=target.icon;
-  document.querySelector("#infopane").style.display="block";
+  document.querySelector("#infopane").style.top="40%";
   SetIcon(currentIcon,currentSvg,currentSize);
 }
 function SetSize(x){
@@ -198,7 +235,7 @@ function SetSize(x){
 }
 function Close(){
   var pane=document.querySelector("#infopane");
-  pane.style.display="none";
+  pane.style.top="100%";
 }
 function ClickPng(){
   document.querySelector("#downloadpng").click();
@@ -227,9 +264,11 @@ function SetDownload(){
 }
 window.addEventListener("load",Init);
 </script>
-<h1 class="title">webmusic-icons</h1>
-<br/>
-<div style="margin-left:30px"><b>Scalable icons for Web Music Applications</b></div>
+<div id="header"><h1 class="title">webmusic-icons</h1>
+  <br/>
+  <div class="subtitle"><b>Scalable icons for Web Music Applications</b></div>
+</div>
+<div id="container">
 <hr/>
 <div id="list">
 <span class="listitem"><iron-icon icon="webmusic-icons:midiappy"></iron-icon><span class="remark">midiappy</span></span>
@@ -278,6 +317,9 @@ window.addEventListener("load",Init);
 <span class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
+<span class="listitem"><iron-icon icon="webmusic-icons:sp1200"></iron-icon><span class="remark">sp1200</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><span class="remark">sc88pro</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><span class="remark">mpc1000</span></span>
 <span class="listitem"><iron-icon icon="webmusic-icons:tb303"></iron-icon><span class="remark">tb303</span></span>
@@ -360,6 +402,9 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:maracas"></iron-icon><br/>maracas</div>
 <div class="item"><iron-icon icon="webmusic-icons:theremin"></iron-icon><br/>theremin</div>
 <div class="item"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><br/>moogiiic</div>
+<div class="item"><iron-icon icon="webmusic-icons:synthia"></iron-icon><br/>synthia</div>
+<div class="item"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><br/>prophet5</div>
+<div class="item"><iron-icon icon="webmusic-icons:sp1200"></iron-icon><br/>sp1200</div>
 <div class="item"><iron-icon icon="webmusic-icons:sc88pro"></iron-icon><br/>sc88pro</div>
 <div class="item"><iron-icon icon="webmusic-icons:mpc1000"></iron-icon><br/>mpc1000</div>
 <div class="item"><iron-icon icon="webmusic-icons:tb303"></iron-icon><br/>tb303</div>
@@ -485,17 +530,19 @@ This work is published from:
   Japan</span>.
 </p>
 <div id="infopane">
-  <br/>
+  <div id="infoheader"> iconName : <span id="infonametext"></span></div>
+  <div id="infocontainer">
   <div id="infoiconbase">
   <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select>
   <div id="infoicon"></div>
   </div>
-  <div id="infoname">Name : <span id="infonametext"></span></div>
   <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
   <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
   <br/>
   <button id="pngbutton" onclick="ClickPng()">Donwload PNG</button> <button id="svgbutton" onclick="ClickSvg()">Download SVG</button> <button id="close">Close</button>
   <a id="downloadpng">Download as PNG</a> <a id="downloadsvg">Download as SVG</a>
+</div>
+</div>
 </div>
 </body>
 </html>
