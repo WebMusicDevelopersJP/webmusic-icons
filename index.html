@@ -222,7 +222,6 @@ function SetIcon(name,svg,size){
     document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px\"></iron-icon>";
   if(svg){
     document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+size+"\" height=\""+size+"\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
-//    SetDownload();
     document.querySelector("#svgbutton").disabled=false;
     document.querySelector("#pngbutton").disabled=false;
   }
@@ -305,30 +304,6 @@ function ClickSvg(){
   var name=currentIcon.split(":")[1]+".svg";
   ExecDownload(blob,name);
 }
-function SetDownload(){
-  var txt=document.querySelector("#infosvgtext").value;
-  var name=document.querySelector("#infonametext").innerHTML.split(":")[1];
-  var svglink=document.querySelector("#downloadsvg");
-  svglink.download=name+".svg";
-//  if(window.navigator.msSaveBlob){
-//    console.log("msSaveBlob");
-//    return;
-//  }
-//svglink.href="data:application/octet-stream,"+encodeURIComponent(txt);
-svglink.href="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(txt);
-  var pnglink=document.querySelector("#downloadpng");
-  pnglink.download=name+".png";
-  var img=new Image(currentSize,currentSize);
-  var canvas=document.createElement("canvas");
-  canvas.width=currentSize;
-  canvas.height=currentSize;
-  var ctx=canvas.getContext("2d");
-  img.onload=function(){
-    ctx.drawImage(img,0,0);
-    pnglink.href=canvas.toDataURL();
-  }
-  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(txt);
-}
 window.addEventListener("load",Init);
 </script>
 <div id="header"><h1 class="title">webmusic-icons</h1>
@@ -359,10 +334,13 @@ window.addEventListener("load",Init);
 <span id="icon_spectrum" class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
 <span id="icon_vynil" class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
 <span id="icon_trumpet" class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
+<span id="icon_trombone" class="listitem"><iron-icon icon="webmusic-icons:trombone"></iron-icon><span class="remark">trombone</span></span>
 <span id="icon_sax" class="listitem"><iron-icon icon="webmusic-icons:sax"></iron-icon><span class="remark">sax</span></span>
 <span id="icon_piano" class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
 <span id="icon_organ" class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
 <span id="icon_marimba" class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
+<span id="icon_contrabass" class="listitem"><iron-icon icon="webmusic-icons:contrabass"></iron-icon><span class="remark">contrabass</span></span>
+<span id="icon_shamisen" class="listitem"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><span class="remark">shamisen</span></span>
 <span id="icon_violin" class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
 <span id="icon_guitar" class="listitem"><iron-icon icon="webmusic-icons:guitar"></iron-icon><span class="remark">guitar</span></span>
 <span id="icon_drums" class="listitem"><iron-icon icon="webmusic-icons:drums"></iron-icon><span class="remark">drums</span></span>
@@ -382,8 +360,11 @@ window.addEventListener("load",Init);
 <span id="icon_cowbell" class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
 <span id="icon_tanbourine" class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
 <span id="icon_maracas" class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
+<span id="icon_speaknspell" class="listitem"><iron-icon icon="webmusic-icons:speaknspell"></iron-icon><span class="remark">speaknspell</span></span>
 <span id="icon_theremin" class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
 <span id="icon_ewi3000" class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
+<span id="icon_kx1" class="listitem"><iron-icon icon="webmusic-icons:kx1"></iron-icon><span class="remark">kx1</span></span>
+<span id="icon_vltone" class="listitem"><iron-icon icon="webmusic-icons:vltone"></iron-icon><span class="remark">vltone</span></span>
 <span id="icon_moogiiic" class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
 <span id="icon_synthia" class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
 <span id="icon_prophet5" class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
@@ -446,10 +427,13 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><br/>spectrum</div>
 <div class="item"><iron-icon icon="webmusic-icons:vynil"></iron-icon><br/>vynil</div>
 <div class="item"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><br/>trumpet</div>
+<div class="item"><iron-icon icon="webmusic-icons:trombone"></iron-icon><br/>trombone</div>
 <div class="item"><iron-icon icon="webmusic-icons:sax"></iron-icon><br/>sax</div>
 <div class="item"><iron-icon icon="webmusic-icons:piano"></iron-icon><br/>piano</div>
 <div class="item"><iron-icon icon="webmusic-icons:organ"></iron-icon><br/>organ</div>
 <div class="item"><iron-icon icon="webmusic-icons:marimba"></iron-icon><br/>marimba</div>
+<div class="item"><iron-icon icon="webmusic-icons:contrabass"></iron-icon><br/>contrabass</div>
+<div class="item"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><br/>shamisen</div>
 <div class="item"><iron-icon icon="webmusic-icons:violin"></iron-icon><br/>violin</div>
 <div class="item"><iron-icon icon="webmusic-icons:guitar"></iron-icon><br/>guitar</div>
 <div class="item"><iron-icon icon="webmusic-icons:drums"></iron-icon><br/>drums</div>
@@ -469,8 +453,11 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><br/>cowbell</div>
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:maracas"></iron-icon><br/>maracas</div>
+<div class="item"><iron-icon icon="webmusic-icons:speaknspell"></iron-icon><br/>speaknspell</div>
 <div class="item"><iron-icon icon="webmusic-icons:theremin"></iron-icon><br/>theremin</div>
 <div class="item"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><br/>ewi3000</div>
+<div class="item"><iron-icon icon="webmusic-icons:kx1"></iron-icon><br/>kx1</div>
+<div class="item"><iron-icon icon="webmusic-icons:vltone"></iron-icon><br/>vltone</div>
 <div class="item"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><br/>moogiiic</div>
 <div class="item"><iron-icon icon="webmusic-icons:synthia"></iron-icon><br/>synthia</div>
 <div class="item"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><br/>prophet5</div>
