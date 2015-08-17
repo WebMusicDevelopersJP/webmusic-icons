@@ -159,6 +159,12 @@
   #infosize{
     font-weight:bolder;
     margin-bottom:2px;
+    display:inline;
+  }
+  #infocol{
+    font-weight:bolder;
+    margin-bottom:2px;
+    display:inline;
   }
   #infocontainer{
     padding:20px;
@@ -202,6 +208,7 @@
 var currentIcon=null;
 var currentSvg="";
 var currentSize=256;
+var currentColor="default";
 function Init(){
   document.querySelector("#close").addEventListener("click",Close);
   document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
@@ -210,17 +217,29 @@ function Init(){
   for(var i=0;i<icons.length;++i)
     icons[i].addEventListener("click",Click);
 }
-function SetIcon(name,svg,size){
+function SetIcon(name,svg,size,col){
+  var stylecol="";
+  if(col=="default")
+    col="";
+  else
+    stylecol="color:"+col;
   document.querySelector("#infonametext").innerHTML=name;
   if(size>256)
-    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;border:1px solid #66c;\"></iron-icon>";
+    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;border:1px solid #66c;"+stylecol+"\"></iron-icon>";
   else
-    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;border:1px solid #66c;\"></iron-icon>";
-  if(size==48)
-    document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\"></iron-icon>";
-  else
-    document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px\"></iron-icon>";
+    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;border:1px solid #66c;"+stylecol+"\"></iron-icon>";
+  if(size==48){
+    if(col)
+      document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\""+stylecol+"\"></iron-icon>";
+    else
+      document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\"></iron-icon>";
+  }
+  else{
+    document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;"+stylecol+"\"></iron-icon>";
+  }
   if(svg){
+    if(col)
+      svg=svg.replace(/currentColor/g,col);
     document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+size+"\" height=\""+size+"\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
     document.querySelector("#svgbutton").disabled=false;
     document.querySelector("#pngbutton").disabled=false;
@@ -255,7 +274,7 @@ function Click(item){
   currentSvg=svg;
   currentIcon=target.icon;
   document.querySelector("#infopane").style.top="40%";
-  SetIcon(currentIcon,currentSvg,currentSize);
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
 }
 function ExecDownload(blob,filename){
   if(window.navigator.msSaveBlob){
@@ -272,7 +291,11 @@ function ExecDownload(blob,filename){
 }
 function SetSize(x){
   currentSize=x;
-  SetIcon(currentIcon,currentSvg,x);
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
+}
+function SetColor(x){
+  currentColor=x;
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
 }
 function Close(){
   var pane=document.querySelector("#infopane");
@@ -329,6 +352,11 @@ window.addEventListener("load",Init);
 <span id="icon_amp" class="listitem"><iron-icon icon="webmusic-icons:amp"></iron-icon><span class="remark">amp</span></span>
 <span id="icon_vu" class="listitem"><iron-icon icon="webmusic-icons:vu"></iron-icon><span class="remark">vu</span></span>
 <span id="icon_tuner" class="listitem"><iron-icon icon="webmusic-icons:tuner"></iron-icon><span class="remark">tuner</span></span>
+<span id="icon_display" class="listitem"><iron-icon icon="webmusic-icons:display"></iron-icon><span class="remark">display</span></span>
+<span id="icon_desktoppc" class="listitem"><iron-icon icon="webmusic-icons:desktoppc"></iron-icon><span class="remark">desktoppc</span></span>
+<span id="icon_notepc" class="listitem"><iron-icon icon="webmusic-icons:notepc"></iron-icon><span class="remark">notepc</span></span>
+<span id="icon_tablet" class="listitem"><iron-icon icon="webmusic-icons:tablet"></iron-icon><span class="remark">tablet</span></span>
+<span id="icon_smartphone" class="listitem"><iron-icon icon="webmusic-icons:smartphone"></iron-icon><span class="remark">smartphone</span></span>
 <span id="icon_metronome" class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
 <span id="icon_tuningfork" class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
 <span id="icon_spectrum" class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
@@ -339,6 +367,7 @@ window.addEventListener("load",Init);
 <span id="icon_piano" class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
 <span id="icon_organ" class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
 <span id="icon_marimba" class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
+<span id="icon_harmonica" class="listitem"><iron-icon icon="webmusic-icons:harmonica"></iron-icon><span class="remark">harmonica</span></span>
 <span id="icon_contrabass" class="listitem"><iron-icon icon="webmusic-icons:contrabass"></iron-icon><span class="remark">contrabass</span></span>
 <span id="icon_shamisen" class="listitem"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><span class="remark">shamisen</span></span>
 <span id="icon_violin" class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
@@ -358,8 +387,11 @@ window.addEventListener("load",Init);
 <span id="icon_gong" class="listitem"><iron-icon icon="webmusic-icons:gong"></iron-icon><span class="remark">conga</span></span>
 <span id="icon_windchime" class="listitem"><iron-icon icon="webmusic-icons:windchime"></iron-icon><span class="remark">windchime</span></span>
 <span id="icon_cowbell" class="listitem"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><span class="remark">cowbell</span></span>
+<span id="icon_agogo" class="listitem"><iron-icon icon="webmusic-icons:agogo"></iron-icon><span class="remark">agogo</span></span>
 <span id="icon_tanbourine" class="listitem"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><span class="remark">tanbourine</span></span>
 <span id="icon_maracas" class="listitem"><iron-icon icon="webmusic-icons:maracas"></iron-icon><span class="remark">maracas</span></span>
+<span id="icon_castanets" class="listitem"><iron-icon icon="webmusic-icons:castanets"></iron-icon><span class="remark">castanets</span></span>
+<span id="icon_simmons" class="listitem"><iron-icon icon="webmusic-icons:simmons"></iron-icon><span class="remark">simmons</span></span>
 <span id="icon_speaknspell" class="listitem"><iron-icon icon="webmusic-icons:speaknspell"></iron-icon><span class="remark">speaknspell</span></span>
 <span id="icon_theremin" class="listitem"><iron-icon icon="webmusic-icons:theremin"></iron-icon><span class="remark">theremin</span></span>
 <span id="icon_ewi3000" class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
@@ -401,6 +433,13 @@ window.addEventListener("load",Init);
 <span id="icon_noise" class="listitem"><iron-icon icon="webmusic-icons:noise"></iron-icon><span class="remark">noise</span></span>
 <span id="icon_envelope" class="listitem"><iron-icon icon="webmusic-icons:envelope"></iron-icon><span class="remark">envelope</span></span>
 <span id="icon_wave" class="listitem"><iron-icon icon="webmusic-icons:wave"></iron-icon><span class="remark">wave</span></span>
+<span id="icon_lpf" class="listitem"><iron-icon icon="webmusic-icons:lpf"></iron-icon><span class="remark">lpf</span></span>
+<span id="icon_hpf" class="listitem"><iron-icon icon="webmusic-icons:hpf"></iron-icon><span class="remark">hpf</span></span>
+<span id="icon_bpf" class="listitem"><iron-icon icon="webmusic-icons:bpf"></iron-icon><span class="remark">bpf</span></span>
+<span id="icon_notch" class="listitem"><iron-icon icon="webmusic-icons:notch"></iron-icon><span class="remark">notch</span></span>
+<span id="icon_peaking" class="listitem"><iron-icon icon="webmusic-icons:peaking"></iron-icon><span class="remark">peaking</span></span>
+<span id="icon_lowshelf" class="listitem"><iron-icon icon="webmusic-icons:lowshelf"></iron-icon><span class="remark">lowshelf</span></span>
+<span id="icon_highshelf" class="listitem"><iron-icon icon="webmusic-icons:highshelf"></iron-icon><span class="remark">highshelf</span></span>
 </div>
 <br/>
 
@@ -422,6 +461,11 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:amp"></iron-icon><br/>amp</div>
 <div class="item"><iron-icon icon="webmusic-icons:vu"></iron-icon><br/>vu</div>
 <div class="item"><iron-icon icon="webmusic-icons:tuner"></iron-icon><br/>tuner</div>
+<div class="item"><iron-icon icon="webmusic-icons:display"></iron-icon><br/>display</div>
+<div class="item"><iron-icon icon="webmusic-icons:desktoppc"></iron-icon><br/>desktoppc</div>
+<div class="item"><iron-icon icon="webmusic-icons:notepc"></iron-icon><br/>notepc</div>
+<div class="item"><iron-icon icon="webmusic-icons:tablet"></iron-icon><br/>tablet</div>
+<div class="item"><iron-icon icon="webmusic-icons:smartphone"></iron-icon><br/>smartphone</div>
 <div class="item"><iron-icon icon="webmusic-icons:metronome"></iron-icon><br/>metronome</div>
 <div class="item"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><br/>tuningfork</div>
 <div class="item"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><br/>spectrum</div>
@@ -432,6 +476,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:piano"></iron-icon><br/>piano</div>
 <div class="item"><iron-icon icon="webmusic-icons:organ"></iron-icon><br/>organ</div>
 <div class="item"><iron-icon icon="webmusic-icons:marimba"></iron-icon><br/>marimba</div>
+<div class="item"><iron-icon icon="webmusic-icons:harmonica"></iron-icon><br/>harmonica</div>
 <div class="item"><iron-icon icon="webmusic-icons:contrabass"></iron-icon><br/>contrabass</div>
 <div class="item"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><br/>shamisen</div>
 <div class="item"><iron-icon icon="webmusic-icons:violin"></iron-icon><br/>violin</div>
@@ -451,8 +496,11 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:gong"></iron-icon><br/>gong</div>
 <div class="item"><iron-icon icon="webmusic-icons:windchime"></iron-icon><br/>windchime</div>
 <div class="item"><iron-icon icon="webmusic-icons:cowbell"></iron-icon><br/>cowbell</div>
+<div class="item"><iron-icon icon="webmusic-icons:agogo"></iron-icon><br/>agogo</div>
 <div class="item"><iron-icon icon="webmusic-icons:tanbourine"></iron-icon><br/>tanbourine</div>
 <div class="item"><iron-icon icon="webmusic-icons:maracas"></iron-icon><br/>maracas</div>
+<div class="item"><iron-icon icon="webmusic-icons:castanets"></iron-icon><br/>castanets</div>
+<div class="item"><iron-icon icon="webmusic-icons:simmons"></iron-icon><br/>simmons</div>
 <div class="item"><iron-icon icon="webmusic-icons:speaknspell"></iron-icon><br/>speaknspell</div>
 <div class="item"><iron-icon icon="webmusic-icons:theremin"></iron-icon><br/>theremin</div>
 <div class="item"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><br/>ewi3000</div>
@@ -494,6 +542,13 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:noise"></iron-icon><br/>noise</div>
 <div class="item"><iron-icon icon="webmusic-icons:envelope"></iron-icon><br/>envelope</div>
 <div class="item"><iron-icon icon="webmusic-icons:wave"></iron-icon><br/>wave</div>
+<div class="item"><iron-icon icon="webmusic-icons:lpf"></iron-icon><br/>lpf</div>
+<div class="item"><iron-icon icon="webmusic-icons:hpf"></iron-icon><br/>hpf</div>
+<div class="item"><iron-icon icon="webmusic-icons:bpf"></iron-icon><br/>bpf</div>
+<div class="item"><iron-icon icon="webmusic-icons:notch"></iron-icon><br/>notch</div>
+<div class="item"><iron-icon icon="webmusic-icons:peaking"></iron-icon><br/>peaking</div>
+<div class="item"><iron-icon icon="webmusic-icons:lowshelf"></iron-icon><br/>lowshelf</div>
+<div class="item"><iron-icon icon="webmusic-icons:highshelf"></iron-icon><br/>highshelf</div>
 <br/><br/>
 <hr/>
 <h2>Overview</h2>
@@ -592,6 +647,20 @@ This work is published from:
   <div id="infocontainer">
   <div id="infoiconbase">
   <div id="infosize">Size : <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select></div>
+  <div id="infocol">Col : <select onchange=SetColor(this.value)>
+    <option value="default">default</option>
+    <option value="#000000" style="background:#000000;color:#fff">black</option>
+    <option value="#808080" style="background:#808080;color:#fff">gray</option>
+    <option value="#a9a9a9" style="background:#a9a9a9;color:#fff">dark gray</option>
+    <option value="#d3d3d3" style="background:#d3d3d3;color:#000">light gray</option>
+    <option value="#ffffff" style="background:#ffffff;color:#000">white</option>
+    <option value="#800000" style="background:#800000;color:#fff">maroon</option>
+    <option value="#ff0000" style="background:#ff0000;color:#fff">red</option>
+    <option value="#008000" style="background:#008000;color:#fff">green</option>
+    <option value="#00ff00" style="background:#00ff00;color:#fff">lime</option>
+    <option value="#000080" style="background:#000080;color:#fff">navy</option>
+    <option value="#0000ff" style="background:#0000ff;color:#fff">blue</option>
+  </select></div>
   <div id="infoicon"></div>
   </div>
   <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
