@@ -129,6 +129,30 @@
   #container{
     padding:10px;
   }
+  #colorpicker{
+    position:fixed;
+    display:block;
+    top:100%;
+    transition: all .4s ease;
+    height:380px;
+    width:800px;
+    left:50%;
+    right:0;
+    bottom:0;
+    margin:0 auto;
+    padding:8px;
+    background:#fff;
+    box-shadow: 2px 2px 5px 3px rgba(0,0,0,0.5);
+    border-radius: 8px;
+  }
+  .pal {
+    display:inline-block;
+    width:64px;
+    height:16px;
+    margin:1px;
+    padding:4px;
+    border:1px solid #000;
+  }
   #infopane{
     position:fixed;
     display:block;
@@ -167,7 +191,7 @@
     display:inline;
   }
   #infocontainer{
-    padding:20px;
+    padding:10px;
   }
   #infoiconbase{
     float:left;
@@ -175,6 +199,7 @@
     margin-right:20px;
   }
   #infoicon {
+    float:left;
     position:relative;
     overflow:auto;
     width:270px;
@@ -182,6 +207,7 @@
     background:#ddf;
     border:1px solid #444;
     padding:4px;
+    margin:10px 20px 10px 10px;
   }
   #infocode,#infosvg {
     font-weight: bold;
@@ -197,7 +223,7 @@
   #download {
     display:none;
   }
-  #close,#pngbutton,#svgbutton {
+  #closeinfo,#pngbutton,#svgbutton {
     width:120px;
     height:30px;
   }
@@ -210,9 +236,11 @@ var currentSvg="";
 var currentSize=256;
 var currentColor="default";
 function Init(){
-  document.querySelector("#close").addEventListener("click",Close);
+  document.querySelector("#closeinfo").addEventListener("click",CloseInfo);
   document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
   document.querySelector("#infosvgtext").addEventListener("click", function(e){e.target.focus();e.target.select();});
+//  document.querySelector("#colpick").addEventListener("click", OpenColorpicker);
+//  document.querySelector("#closecolorpicker").addEventListener("click",CloseColorpicker);
   var icons=document.getElementsByTagName("iron-icon");
   for(var i=0;i<icons.length;++i)
     icons[i].addEventListener("click",Click);
@@ -297,8 +325,20 @@ function SetColor(x){
   currentColor=x;
   SetIcon(currentIcon,currentSvg,currentSize,currentColor);
 }
-function Close(){
+function SelectCol(x){
+  document.querySelector("#infocolval").value=x;
+  SetColor(x);
+}
+function CloseInfo(){
   var pane=document.querySelector("#infopane");
+  pane.style.top="100%";
+}
+function OpenColorpicker(){
+  var pane=document.querySelector("#colorpicker");
+  pane.style.top="50%";
+}
+function CloseColorpicker(){
+  var pane=document.querySelector("#colorpicker");
   pane.style.top="100%";
 }
 function ClickPng(){
@@ -359,11 +399,13 @@ window.addEventListener("load",Init);
 <span id="icon_smartphone" class="listitem"><iron-icon icon="webmusic-icons:smartphone"></iron-icon><span class="remark">smartphone</span></span>
 <span id="icon_metronome" class="listitem"><iron-icon icon="webmusic-icons:metronome"></iron-icon><span class="remark">metronome</span></span>
 <span id="icon_tuningfork" class="listitem"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><span class="remark">tuningfork</span></span>
+<span id="icon_phonograph" class="listitem"><iron-icon icon="webmusic-icons:phonograph"></iron-icon><span class="remark">phonograph</span></span>
 <span id="icon_spectrum" class="listitem"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><span class="remark">spectrum</span></span>
 <span id="icon_vynil" class="listitem"><iron-icon icon="webmusic-icons:vynil"></iron-icon><span class="remark">vynil</span></span>
 <span id="icon_trumpet" class="listitem"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><span class="remark">trumpet</span></span>
 <span id="icon_trombone" class="listitem"><iron-icon icon="webmusic-icons:trombone"></iron-icon><span class="remark">trombone</span></span>
 <span id="icon_sax" class="listitem"><iron-icon icon="webmusic-icons:sax"></iron-icon><span class="remark">sax</span></span>
+<span id="icon_flute" class="listitem"><iron-icon icon="webmusic-icons:flute"></iron-icon><span class="remark">flute</span></span>
 <span id="icon_piano" class="listitem"><iron-icon icon="webmusic-icons:piano"></iron-icon><span class="remark">piano</span></span>
 <span id="icon_organ" class="listitem"><iron-icon icon="webmusic-icons:organ"></iron-icon><span class="remark">organ</span></span>
 <span id="icon_marimba" class="listitem"><iron-icon icon="webmusic-icons:marimba"></iron-icon><span class="remark">marimba</span></span>
@@ -372,6 +414,7 @@ window.addEventListener("load",Init);
 <span id="icon_shamisen" class="listitem"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><span class="remark">shamisen</span></span>
 <span id="icon_violin" class="listitem"><iron-icon icon="webmusic-icons:violin"></iron-icon><span class="remark">violin</span></span>
 <span id="icon_guitar" class="listitem"><iron-icon icon="webmusic-icons:guitar"></iron-icon><span class="remark">guitar</span></span>
+<span id="icon_acoguitar" class="listitem"><iron-icon icon="webmusic-icons:acoguitar"></iron-icon><span class="remark">acoguitar</span></span>
 <span id="icon_drums" class="listitem"><iron-icon icon="webmusic-icons:drums"></iron-icon><span class="remark">drums</span></span>
 <span id="icon_kick" class="listitem"><iron-icon icon="webmusic-icons:kick"></iron-icon><span class="remark">kick</span></span>
 <span id="icon_snare" class="listitem"><iron-icon icon="webmusic-icons:snare"></iron-icon><span class="remark">snare</span></span>
@@ -468,11 +511,13 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:smartphone"></iron-icon><br/>smartphone</div>
 <div class="item"><iron-icon icon="webmusic-icons:metronome"></iron-icon><br/>metronome</div>
 <div class="item"><iron-icon icon="webmusic-icons:tuningfork"></iron-icon><br/>tuningfork</div>
+<div class="item"><iron-icon icon="webmusic-icons:phonograph"></iron-icon><br/>phonograph</div>
 <div class="item"><iron-icon icon="webmusic-icons:spectrum"></iron-icon><br/>spectrum</div>
 <div class="item"><iron-icon icon="webmusic-icons:vynil"></iron-icon><br/>vynil</div>
 <div class="item"><iron-icon icon="webmusic-icons:trumpet"></iron-icon><br/>trumpet</div>
 <div class="item"><iron-icon icon="webmusic-icons:trombone"></iron-icon><br/>trombone</div>
 <div class="item"><iron-icon icon="webmusic-icons:sax"></iron-icon><br/>sax</div>
+<div class="item"><iron-icon icon="webmusic-icons:flute"></iron-icon><br/>flute</div>
 <div class="item"><iron-icon icon="webmusic-icons:piano"></iron-icon><br/>piano</div>
 <div class="item"><iron-icon icon="webmusic-icons:organ"></iron-icon><br/>organ</div>
 <div class="item"><iron-icon icon="webmusic-icons:marimba"></iron-icon><br/>marimba</div>
@@ -481,6 +526,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:shamisen"></iron-icon><br/>shamisen</div>
 <div class="item"><iron-icon icon="webmusic-icons:violin"></iron-icon><br/>violin</div>
 <div class="item"><iron-icon icon="webmusic-icons:guitar"></iron-icon><br/>guitar</div>
+<div class="item"><iron-icon icon="webmusic-icons:acoguitar"></iron-icon><br/>acoguitar</div>
 <div class="item"><iron-icon icon="webmusic-icons:drums"></iron-icon><br/>drums</div>
 <div class="item"><iron-icon icon="webmusic-icons:kick"></iron-icon><br/>kick</div>
 <div class="item"><iron-icon icon="webmusic-icons:snare"></iron-icon><br/>snare</div>
@@ -645,30 +691,35 @@ This work is published from:
 <div id="infopane">
   <div id="infoheader"> iconName : <span id="infonametext"></span></div>
   <div id="infocontainer">
-  <div id="infoiconbase">
-  <div id="infosize">Size : <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select></div>
-  <div id="infocol">Col : <select onchange=SetColor(this.value)>
-    <option value="default">default</option>
-    <option value="#000000" style="background:#000000;color:#fff">black</option>
-    <option value="#808080" style="background:#808080;color:#fff">gray</option>
-    <option value="#a9a9a9" style="background:#a9a9a9;color:#fff">dark gray</option>
-    <option value="#d3d3d3" style="background:#d3d3d3;color:#000">light gray</option>
-    <option value="#ffffff" style="background:#ffffff;color:#000">white</option>
-    <option value="#800000" style="background:#800000;color:#fff">maroon</option>
-    <option value="#ff0000" style="background:#ff0000;color:#fff">red</option>
-    <option value="#008000" style="background:#008000;color:#fff">green</option>
-    <option value="#00ff00" style="background:#00ff00;color:#fff">lime</option>
-    <option value="#000080" style="background:#000080;color:#fff">navy</option>
-    <option value="#0000ff" style="background:#0000ff;color:#fff">blue</option>
-  </select></div>
-  <div id="infoicon"></div>
+    <div id="infoicon"></div>
+      <div id="infosize">Size : <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select></div>
+      <div id="infocol">Color : <input id="infocolval" type="text" size="8" value="default" oninput="SetColor(this.value)"/>
+      <select style="width:20px" onchange="SelectCol(this.value)">
+        <option>default</option>
+        <option style="background:#000000;color:#fff">#000000</option>
+        <option style="background:#808080;color:#fff">#808080</option>
+        <option style="background:#c0c0c0">#c0c0c0</option>
+        <option style="background:#ffffff">#ffffff</option>
+        <option style="background:#000080;color:#fff">#000080</option>
+        <option style="background:#0000ff;color:#fff">#0000ff</option>
+        <option style="background:#008080;color:#fff">#008080</option>
+        <option style="background:#00ffff;color:#fff">#00ffff</option>
+        <option style="background:#008000;color:#fff">#008000</option>
+        <option style="background:#00ff00;color:#fff">#00ff00</option>
+        <option style="background:#808000;color:#fff">#808000</option>
+        <option style="background:#ffff00;color:#000">#ffff00</option>
+        <option style="background:#800000;color:#fff">#800000</option>
+        <option style="background:#ff0000;color:#fff">#ff0000</option>
+        <option style="background:#800080;color:#fff">#800080</option>
+        <option style="background:#ff00ff;color:#fff">#ff00ff</option>
+      </select>
+      </div><br/><br/>
+      <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
+      <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
+      <br/>
+      <button id="pngbutton" onclick="ClickPng()">Donwload PNG</button> <button id="svgbutton" onclick="ClickSvg()">Download SVG</button> <button id="closeinfo">Close</button>
+      <br/><br/><a id="download">Download</a>
   </div>
-  <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
-  <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
-  <br/>
-  <button id="pngbutton" onclick="ClickPng()">Donwload PNG</button> <button id="svgbutton" onclick="ClickSvg()">Download SVG</button> <button id="close">Close</button>
-  <br/><br/><a id="download">Download</a>
-</div>
 </div>
 </div>
 </body>
