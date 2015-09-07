@@ -239,8 +239,6 @@ function Init(){
   document.querySelector("#closeinfo").addEventListener("click",CloseInfo);
   document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
   document.querySelector("#infosvgtext").addEventListener("click", function(e){e.target.focus();e.target.select();});
-//  document.querySelector("#colpick").addEventListener("click", OpenColorpicker);
-//  document.querySelector("#closecolorpicker").addEventListener("click",CloseColorpicker);
   var icons=document.getElementsByTagName("iron-icon");
   for(var i=0;i<icons.length;++i)
     icons[i].addEventListener("click",Click);
@@ -460,6 +458,8 @@ window.addEventListener("load",Init);
 <span id="icon_55sh" class="listitem"><iron-icon icon="webmusic-icons:55sh"></iron-icon><span class="remark">55sh</span></span>
 <span id="icon_u87" class="listitem"><iron-icon icon="webmusic-icons:u87"></iron-icon><span class="remark">u87</span></span>
 <span id="icon_c38stand" class="listitem"><iron-icon icon="webmusic-icons:c38stand"></iron-icon><span class="remark">c38stand</span></span>
+<span id="icon_jc120" class="listitem"><iron-icon icon="webmusic-icons:jc120"></iron-icon><span class="remark">jc120</span></span>
+<span id="icon_twinreverb" class="listitem"><iron-icon icon="webmusic-icons:twinreverb"></iron-icon><span class="remark">twinreverb</span></span>
 <span id="icon_nanokey" class="listitem"><iron-icon icon="webmusic-icons:nanokey"></iron-icon><span class="remark">nanokey</span></span>
 <span id="icon_nanokontrol" class="listitem"><iron-icon icon="webmusic-icons:nanokontrol"></iron-icon><span class="remark">nanokontrol</span></span>
 <span id="icon_nanopad" class="listitem"><iron-icon icon="webmusic-icons:nanopad"></iron-icon><span class="remark">nanopad</span></span>
@@ -472,6 +472,7 @@ window.addEventListener("load",Init);
 <span id="icon_ewi3000" class="listitem"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><span class="remark">ewi3000</span></span>
 <span id="icon_kx1" class="listitem"><iron-icon icon="webmusic-icons:kx1"></iron-icon><span class="remark">kx1</span></span>
 <span id="icon_vltone" class="listitem"><iron-icon icon="webmusic-icons:vltone"></iron-icon><span class="remark">vltone</span></span>
+<span id="icon_microkorg" class="listitem"><iron-icon icon="webmusic-icons:microkorg"></iron-icon><span class="remark">microkorg</span></span>
 <span id="icon_moogiiic" class="listitem"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><span class="remark">moogiiic</span></span>
 <span id="icon_synthia" class="listitem"><iron-icon icon="webmusic-icons:synthia"></iron-icon><span class="remark">synthia</span></span>
 <span id="icon_prophet5" class="listitem"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><span class="remark">prophet5</span></span>
@@ -485,6 +486,7 @@ window.addEventListener("load",Init);
 <span id="icon_ms20" class="listitem"><iron-icon icon="webmusic-icons:ms20"></iron-icon><span class="remark">ms20</span></span>
 <span id="icon_dx7" class="listitem"><iron-icon icon="webmusic-icons:dx7"></iron-icon><span class="remark">dx7</span></span>
 <span id="icon_m1" class="listitem"><iron-icon icon="webmusic-icons:m1"></iron-icon><span class="remark">m1</span></span>
+<span id="icon_d50" class="listitem"><iron-icon icon="webmusic-icons:d50"></iron-icon><span class="remark">d50</span></span>
 <span id="icon_minimoog" class="listitem"><iron-icon icon="webmusic-icons:minimoog"></iron-icon><span class="remark">minimoog</span></span>
 <span id="icon_nordlead" class="listitem"><iron-icon icon="webmusic-icons:nordlead"></iron-icon><span class="remark">nordlead</span></span>
 <span id="icon_spaceecho" class="listitem"><iron-icon icon="webmusic-icons:spaceecho"></iron-icon><span class="remark">spaceecho</span></span>
@@ -609,6 +611,8 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:55sh"></iron-icon><br/>55sh</div>
 <div class="item"><iron-icon icon="webmusic-icons:u87"></iron-icon><br/>u87</div>
 <div class="item"><iron-icon icon="webmusic-icons:c38stand"></iron-icon><br/>c38stand</div>
+<div class="item"><iron-icon icon="webmusic-icons:jc120"></iron-icon><br/>jc120</div>
+<div class="item"><iron-icon icon="webmusic-icons:twinreverb"></iron-icon><br/>twinreverb</div>
 <div class="item"><iron-icon icon="webmusic-icons:nanokey"></iron-icon><br/>nanokey</div>
 <div class="item"><iron-icon icon="webmusic-icons:nanokontrol"></iron-icon><br/>nanokontrol</div>
 <div class="item"><iron-icon icon="webmusic-icons:nanopad"></iron-icon><br/>nanopad</div>
@@ -621,6 +625,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:ewi3000"></iron-icon><br/>ewi3000</div>
 <div class="item"><iron-icon icon="webmusic-icons:kx1"></iron-icon><br/>kx1</div>
 <div class="item"><iron-icon icon="webmusic-icons:vltone"></iron-icon><br/>vltone</div>
+<div class="item"><iron-icon icon="webmusic-icons:microkorg"></iron-icon><br/>microkorg</div>
 <div class="item"><iron-icon icon="webmusic-icons:moogiiic"></iron-icon><br/>moogiiic</div>
 <div class="item"><iron-icon icon="webmusic-icons:synthia"></iron-icon><br/>synthia</div>
 <div class="item"><iron-icon icon="webmusic-icons:prophet5"></iron-icon><br/>prophet5</div>
@@ -634,6 +639,7 @@ window.addEventListener("load",Init);
 <div class="item"><iron-icon icon="webmusic-icons:ms20"></iron-icon><br/>ms20</div>
 <div class="item"><iron-icon icon="webmusic-icons:dx7"></iron-icon><br/>dx7</div>
 <div class="item"><iron-icon icon="webmusic-icons:m1"></iron-icon><br/>m1</div>
+<div class="item"><iron-icon icon="webmusic-icons:d50"></iron-icon><br/>d50</div>
 <div class="item"><iron-icon icon="webmusic-icons:minimoog"></iron-icon><br/>minimoog</div>
 <div class="item"><iron-icon icon="webmusic-icons:nordlead"></iron-icon><br/>nordlead</div>
 <div class="item"><iron-icon icon="webmusic-icons:spaceecho"></iron-icon><br/>spaceecho</div>
