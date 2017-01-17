@@ -158,11 +158,12 @@
     display:block;
     top:100%;
     transition: all .4s ease;
-    height:380px;
-    width:800px;
+    height:420px;
+    width:900px;
     left:0;
     right:0;
     bottom:0;
+    font-weight:bold;
     margin:0 auto;
     padding:0px;
     background:#fff;
@@ -180,44 +181,45 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
   }
-  #infosize{
-    font-weight:bolder;
-    margin-bottom:2px;
-    display:inline;
-  }
-  #infocol{
-    font-weight:bolder;
-    margin-bottom:2px;
-    display:inline;
-  }
-  #infocontainer{
-    padding:10px;
-  }
-  #infoiconbase{
-    float:left;
-    margin:0px;
-    margin-right:20px;
-  }
   #infoicon {
     float:left;
     position:relative;
-    overflow:auto;
-    width:270px;
-    height:270px;
+    overflow:scroll;
+    width:325px;
+    height:325px;
     background:#ddf;
-    border:1px solid #444;
+    border:none;
     padding:4px;
     margin:10px 20px 10px 10px;
+  }
+  #infoframe {
+    border:1px solid #66d;
+    margin:auto;
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    width:256px;
+    height:256px;
+  }
+  #infoicon iron-icon{
+    margin:auto;
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
   }
   #infocode,#infosvg {
     font-weight: bold;
   }
   #infocodetext {
-    width:420px;
-    height:30px;
+    width:520px;
+    height:35px;
   }
   #infosvgtext {
-    width:420px;
+    width:520px;
     height:120px;
   }
   #download {
@@ -235,6 +237,8 @@ var currentIcon=null;
 var currentSvg="";
 var currentSize=256;
 var currentColor="default";
+var currentRot=0;
+var currentScale=100;
 function Init(){
   document.querySelector("#closeinfo").addEventListener("click",CloseInfo);
   document.querySelector("#infocodetext").addEventListener("click", function(e){e.target.focus();e.target.select();});
@@ -243,32 +247,60 @@ function Init(){
   for(var i=0;i<icons.length;++i)
     icons[i].addEventListener("click",Click);
 }
-function SetIcon(name,svg,size,col){
-  var stylecol="";
-  if(col=="default")
-    col="";
-  else
-    stylecol="color:"+col;
+function SetIcon(name,svg,size,col,rot,scale){
+  var svgtext="";
+  var tagtext="";
+  var svgr;
   document.querySelector("#infonametext").innerHTML=name;
-  if(size>256)
-    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;border:1px solid #66c;"+stylecol+"\"></iron-icon>";
-  else
-    document.querySelector("#infoicon").innerHTML="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;position:absolute;top:0;left:0;right:0;bottom:0;margin:auto;border:1px solid #66c;"+stylecol+"\"></iron-icon>";
-  if(size==48){
-    if(col)
-      document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\""+stylecol+"\"></iron-icon>";
-    else
-      document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\"></iron-icon>";
-  }
-  else{
-    document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;"+stylecol+"\"></iron-icon>";
-  }
   if(svg){
-    if(col)
+    var r="";
+    if(col!="default")
       svg=svg.replace(/currentColor/g,col);
-    document.querySelector("#infosvgtext").value="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+size+"\" height=\""+size+"\" viewBox=\"0 0 48 48\">\n  "+svg+"\n</svg>";
+    svgr=svg;
+    if(rot!=0){
+      if(scale!=100){
+        svgr="<g transform=\"translate(24,24) rotate("+rot+") scale("+(scale/100)+") translate(-24,-24)\""+svg.substring(2);
+      }
+      else
+        svgr="<g transform=\"rotate("+rot+",24,24)\""+svg.substring(2);
+    }
+    else if(scale!=100){
+      svgr="<g transform=\"translate(24,24) scale("+(scale/100)+") translate(-24,-24)\""+svg.substring(2);
+    }
+    svgtext="<svg xmlns=\"http://www.w3.org/2000/svg\" width=\""+size+"\" height=\""+size+"\" viewBox=\"0 0 48 48\">\n"+svgr+"\n</svg>";
+    tagtext="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px";
+    if(col!="default")
+      tagtext+=";color:"+col;
+    if(rot!=0){
+      if(scale!=100){
+        tagtext+=";transform:rotate("+rot+"deg) scale("+(scale/100)+")";
+      }
+      else
+        tagtext+=";transform:rotate("+rot+"deg)";
+    }
+    else if(scale!=100)
+      tagtext+=";transform:scale("+(scale/100)+")";
+    tagtext+="\"></iron-icon>";
+    document.querySelector("#infosvgtext").value=svgtext;
     document.querySelector("#svgbutton").disabled=false;
     document.querySelector("#pngbutton").disabled=false;
+    document.querySelector("#infoicon").innerHTML="<div id='infoframe'/></div>"+tagtext;
+    document.querySelector("#infocodetext").value=tagtext;
+    var fr=document.getElementById("infoframe");
+    fr.style.width=size+"px";
+    fr.style.height=size+"px";
+    var infoicon=document.querySelector("#infoicon svg");
+/*    if(size==48){
+      if(col)
+        document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\""+stylecol+"\"></iron-icon>";
+      else
+        document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\"></iron-icon>";
+    }
+    else{
+      document.querySelector("#infocodetext").value="<iron-icon icon=\""+name+"\" style=\"width:"+size+"px;height:"+size+"px;"+stylecol+"\"></iron-icon>";
+    }
+*/
+
   }
   else{
     document.querySelector("#infosvgtext").value="Not Supported on this browser.";
@@ -300,7 +332,7 @@ function Click(item){
   currentSvg=svg;
   currentIcon=target.icon;
   document.querySelector("#infopane").style.top="40%";
-  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor,currentRot,currentScale);
 }
 function ExecDownload(blob,filename){
   if(window.navigator.msSaveBlob){
@@ -317,11 +349,19 @@ function ExecDownload(blob,filename){
 }
 function SetSize(x){
   currentSize=x;
-  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor,currentRot,currentScale);
 }
 function SetColor(x){
   currentColor=x;
-  SetIcon(currentIcon,currentSvg,currentSize,currentColor);
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor,currentRot,currentScale);
+}
+function SetRot(x){
+  currentRot=x;
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor,currentRot,currentScale);
+}
+function SetScale(x){
+  currentScale=x;
+  SetIcon(currentIcon,currentSvg,currentSize,currentColor,currentRot,currentScale);
 }
 function SelectCol(x){
   document.querySelector("#infocolval").value=x;
@@ -708,8 +748,8 @@ Following steps are for 'iron-icon' tag usage.
 
 
 <h3>2. Install 'webmusic-icons.html' and depended files.</h3>
-<p><b>webmusic-icons</b> is a Polymer's custom icons with iron-iconset-svg.
-Though it need some preparation to use, icons can be used with simple &lt;iron-icon&gt; tag.
+<p><b>webmusic-icons</b> can be a Polymer's custom icons with iron-iconset-svg.
+Though it need some preparation to use, icons can be used with simple &lt;iron-icon&gt; tag in HTML.
 <p>
   If you use bower, use the command below.  It automatically solve the dependency and place files to 'bower_components' folder :
 <pre>
@@ -782,8 +822,9 @@ This work is published from:
   <div id="infoheader"> iconName : <span id="infonametext"></span></div>
   <div id="infocontainer">
     <div id="infoicon"></div>
-      <div id="infosize">Size : <select onchange=SetSize(this.value)><option value="32">32 x 32px</option><option value="48">48 x 48px</option><option value="96">96 x 96px</option><option value="128">128 x 128px</option><option value="256" selected>256 x 256px</option><option value="512">512 x 512px</option></select></div>
-      <div id="infocol">Color : <input id="infocolval" type="text" size="8" value="default" oninput="SetColor(this.value)"/>
+      <table>
+      <tr><td>Size : </td><td><input id="infosizesli" type="range" style="width:120px" min="1" max="16" value="8" oninput="document.getElementById('infosizeval').value=this.value*32;SetSize(this.value*32)"/> <input id="infosizeval" size="3" value="256" onchange="SetSize(this.value)"/></td>
+        <td>Color : </td><td><input id="infocolval" type="text" size="8" value="default" oninput="SetColor(this.value)"/>
       <select style="width:20px" onchange="SelectCol(this.value)">
         <option>default</option>
         <option style="background:#000000;color:#fff">#000000</option>
@@ -803,7 +844,10 @@ This work is published from:
         <option style="background:#800080;color:#fff">#800080</option>
         <option style="background:#ff00ff;color:#fff">#ff00ff</option>
       </select>
-      </div><br/><br/>
+  </td></tr>
+	<tr><td>Rotate : </td><td><input id="inforotsli" type="range" style="width:120px" min="-360" max="360" value="0" step="15" oninput="document.getElementById('inforotval').value=this.value;SetRot(this.value)"/> <input id="inforotval" size="3" value="0" onchange="SetRot(this.value)"/></td>
+  <td>Scale : </td><td><input id="infoscalesli" type="range" style="width:120px" min="20" max="200" step="10" value="100" oninput="document.getElementById('infoscaleval').value=this.value;SetScale(this.value)"/> <input id="infoscaleval" size="3" value="100" onchange="SetScale(this.value)"/></td></tr>
+</table>
       <div id="infocode">iron-icon Tag : <br/><textarea id="infocodetext" readonly></textarea></div>
       <div id="infosvg">SVG representation : <br/><textarea id="infosvgtext" readonly></textarea></div>
       <br/>
